@@ -1,4 +1,5 @@
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\UIWinTVO.exe
+C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\UIWinTVO.dll.config
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\UIWinTVO.deps.json
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\UIWinTVO.runtimeconfig.json
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\UIWinTVO.dll
@@ -7,7 +8,7 @@ C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-wind
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.csproj.AssemblyReference.cache
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Properties.Resources.resources
-C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.FrmClient.resources
+C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.StartApp.resources
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.csproj.GenerateResource.cache
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.AssemblyInfoInputs.cache
@@ -19,4 +20,3 @@ C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-wind
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.pdb
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.genruntimeconfig.cache
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\ref\UIWinTVO.dll
-C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.StartApp.resources
