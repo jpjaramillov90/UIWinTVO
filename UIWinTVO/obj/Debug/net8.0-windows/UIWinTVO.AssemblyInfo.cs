@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UIWinTVO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7de127cca81fec29fae05a20fcd1d4832c30c07f")]
 [assembly: System.Reflection.AssemblyProductAttribute("UIWinTVO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UIWinTVO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
