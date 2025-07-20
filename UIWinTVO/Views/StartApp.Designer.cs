@@ -32,7 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartApp));
             MTCStartapp = new MaterialSkin.Controls.MaterialTabControl();
             tabPage1 = new TabPage();
+            materialFloatingActionButton3 = new MaterialSkin.Controls.MaterialFloatingActionButton();
+            materialFloatingActionButton2 = new MaterialSkin.Controls.MaterialFloatingActionButton();
+            materialCard3 = new MaterialSkin.Controls.MaterialCard();
+            materialCard2 = new MaterialSkin.Controls.MaterialCard();
+            materialFloatingActionButton1 = new MaterialSkin.Controls.MaterialFloatingActionButton();
+            button1 = new Button();
+            materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
+            label1 = new Label();
             tabPage2 = new TabPage();
+            materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
             mbtnClearClient = new MaterialSkin.Controls.MaterialButton();
             mbtnEditClient = new MaterialSkin.Controls.MaterialButton();
             mbtnAddClient = new MaterialSkin.Controls.MaterialButton();
@@ -57,8 +67,18 @@
             mLbIdClient = new MaterialSkin.Controls.MaterialLabel();
             tabPage3 = new TabPage();
             AssetsIcons = new ImageList(components);
-            materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
+            label2 = new Label();
+            label3 = new Label();
+            materialProgressBar2 = new MaterialSkin.Controls.MaterialProgressBar();
+            label4 = new Label();
+            label5 = new Label();
+            materialProgressBar3 = new MaterialSkin.Controls.MaterialProgressBar();
+            label6 = new Label();
             MTCStartapp.SuspendLayout();
+            tabPage1.SuspendLayout();
+            materialCard3.SuspendLayout();
+            materialCard2.SuspendLayout();
+            materialCard1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvClients).BeginInit();
             SuspendLayout();
@@ -81,15 +101,144 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(materialFloatingActionButton3);
+            tabPage1.Controls.Add(materialFloatingActionButton2);
+            tabPage1.Controls.Add(materialCard3);
+            tabPage1.Controls.Add(materialCard2);
+            tabPage1.Controls.Add(materialFloatingActionButton1);
+            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(materialCard1);
             tabPage1.Font = new Font("Roboto", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabPage1.ImageKey = "home.png";
             tabPage1.Location = new Point(4, 39);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1186, 740);
+            tabPage1.Size = new Size(1186, 790);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Home";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // materialFloatingActionButton3
+            // 
+            materialFloatingActionButton3.Depth = 0;
+            materialFloatingActionButton3.Icon = Properties.Resources.satisfaction1;
+            materialFloatingActionButton3.Image = Properties.Resources.satisfaction1;
+            materialFloatingActionButton3.Location = new Point(687, 623);
+            materialFloatingActionButton3.MouseState = MaterialSkin.MouseState.HOVER;
+            materialFloatingActionButton3.Name = "materialFloatingActionButton3";
+            materialFloatingActionButton3.Size = new Size(98, 93);
+            materialFloatingActionButton3.TabIndex = 5;
+            materialFloatingActionButton3.Text = "materialFloatingActionButton3";
+            materialFloatingActionButton3.UseVisualStyleBackColor = true;
+            // 
+            // materialFloatingActionButton2
+            // 
+            materialFloatingActionButton2.Depth = 0;
+            materialFloatingActionButton2.Icon = Properties.Resources.satisfaction;
+            materialFloatingActionButton2.Image = Properties.Resources.satisfaction;
+            materialFloatingActionButton2.Location = new Point(1044, 484);
+            materialFloatingActionButton2.MouseState = MaterialSkin.MouseState.HOVER;
+            materialFloatingActionButton2.Name = "materialFloatingActionButton2";
+            materialFloatingActionButton2.Size = new Size(98, 93);
+            materialFloatingActionButton2.TabIndex = 5;
+            materialFloatingActionButton2.Text = "materialFloatingActionButton2";
+            materialFloatingActionButton2.UseVisualStyleBackColor = true;
+            // 
+            // materialCard3
+            // 
+            materialCard3.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard3.BackgroundImage = Properties.Resources.logo_Taller_Oleas;
+            materialCard3.BackgroundImageLayout = ImageLayout.Center;
+            materialCard3.Controls.Add(label3);
+            materialCard3.Controls.Add(label4);
+            materialCard3.Controls.Add(materialProgressBar2);
+            materialCard3.Depth = 0;
+            materialCard3.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard3.Location = new Point(431, 590);
+            materialCard3.Margin = new Padding(14);
+            materialCard3.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCard3.Name = "materialCard3";
+            materialCard3.Padding = new Padding(14);
+            materialCard3.Size = new Size(285, 126);
+            materialCard3.TabIndex = 4;
+            // 
+            // materialCard2
+            // 
+            materialCard2.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard2.BackgroundImage = Properties.Resources.logo_Taller_Oleas;
+            materialCard2.BackgroundImageLayout = ImageLayout.Center;
+            materialCard2.Controls.Add(label5);
+            materialCard2.Controls.Add(label6);
+            materialCard2.Controls.Add(materialProgressBar3);
+            materialCard2.Depth = 0;
+            materialCard2.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard2.Location = new Point(788, 451);
+            materialCard2.Margin = new Padding(14);
+            materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCard2.Name = "materialCard2";
+            materialCard2.Padding = new Padding(14);
+            materialCard2.Size = new Size(285, 126);
+            materialCard2.TabIndex = 4;
+            // 
+            // materialFloatingActionButton1
+            // 
+            materialFloatingActionButton1.Depth = 0;
+            materialFloatingActionButton1.Icon = Properties.Resources.check;
+            materialFloatingActionButton1.Image = Properties.Resources.check;
+            materialFloatingActionButton1.Location = new Point(328, 484);
+            materialFloatingActionButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialFloatingActionButton1.Name = "materialFloatingActionButton1";
+            materialFloatingActionButton1.Size = new Size(98, 93);
+            materialFloatingActionButton1.TabIndex = 3;
+            materialFloatingActionButton1.Text = "materialFloatingActionButton1";
+            materialFloatingActionButton1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Image = Properties.Resources.logo_Taller_Oleas;
+            button1.Location = new Point(212, 64);
+            button1.Name = "button1";
+            button1.Size = new Size(741, 350);
+            button1.TabIndex = 2;
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // materialCard1
+            // 
+            materialCard1.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard1.BackgroundImage = Properties.Resources.logo_Taller_Oleas;
+            materialCard1.BackgroundImageLayout = ImageLayout.Center;
+            materialCard1.Controls.Add(label2);
+            materialCard1.Controls.Add(materialProgressBar1);
+            materialCard1.Controls.Add(label1);
+            materialCard1.Depth = 0;
+            materialCard1.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard1.Location = new Point(72, 451);
+            materialCard1.Margin = new Padding(14);
+            materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialCard1.Name = "materialCard1";
+            materialCard1.Padding = new Padding(14);
+            materialCard1.Size = new Size(285, 126);
+            materialCard1.TabIndex = 0;
+            // 
+            // materialProgressBar1
+            // 
+            materialProgressBar1.Depth = 0;
+            materialProgressBar1.Location = new Point(17, 70);
+            materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialProgressBar1.Name = "materialProgressBar1";
+            materialProgressBar1.Size = new Size(220, 5);
+            materialProgressBar1.TabIndex = 1;
+            materialProgressBar1.Value = 100;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Roboto", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(17, 33);
+            label1.Name = "label1";
+            label1.Size = new Size(184, 23);
+            label1.TabIndex = 0;
+            label1.Text = "Trabajo Garantizado";
             // 
             // tabPage2
             // 
@@ -126,6 +275,18 @@
             tabPage2.Text = "Clientes";
             tabPage2.UseVisualStyleBackColor = true;
             tabPage2.Click += tabPage2_Click;
+            // 
+            // materialLabel5
+            // 
+            materialLabel5.AutoSize = true;
+            materialLabel5.Depth = 0;
+            materialLabel5.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel5.Location = new Point(37, 394);
+            materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel5.Name = "materialLabel5";
+            materialLabel5.Size = new Size(135, 19);
+            materialLabel5.TabIndex = 24;
+            materialLabel5.Text = "Listado de Clientes";
             // 
             // mbtnClearClient
             // 
@@ -185,6 +346,7 @@
             mbtnAddClient.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             mbtnAddClient.UseAccentColor = false;
             mbtnAddClient.UseVisualStyleBackColor = true;
+            mbtnAddClient.Click += mbtnAddClient_Click;
             // 
             // dgvClients
             // 
@@ -485,7 +647,7 @@
             // 
             tabPage3.Location = new Point(4, 39);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(1186, 740);
+            tabPage3.Size = new Size(1186, 790);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "tabPage3";
             tabPage3.UseVisualStyleBackColor = true;
@@ -497,18 +659,79 @@
             AssetsIcons.TransparentColor = Color.Transparent;
             AssetsIcons.Images.SetKeyName(0, "CLIENTS.png");
             AssetsIcons.Images.SetKeyName(1, "home.png");
+            AssetsIcons.Images.SetKeyName(2, "check.png");
+            AssetsIcons.Images.SetKeyName(3, "satisfaction.png");
+            AssetsIcons.Images.SetKeyName(4, "satisfaction1.png");
             // 
-            // materialLabel5
+            // label2
             // 
-            materialLabel5.AutoSize = true;
-            materialLabel5.Depth = 0;
-            materialLabel5.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialLabel5.Location = new Point(37, 394);
-            materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel5.Name = "materialLabel5";
-            materialLabel5.Size = new Size(135, 19);
-            materialLabel5.TabIndex = 24;
-            materialLabel5.Text = "Listado de Clientes";
+            label2.AutoSize = true;
+            label2.Font = new Font("Roboto", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(17, 78);
+            label2.Name = "label2";
+            label2.Size = new Size(33, 13);
+            label2.TabIndex = 2;
+            label2.Text = "100%";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Roboto", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(17, 78);
+            label3.Name = "label3";
+            label3.Size = new Size(90, 13);
+            label3.TabIndex = 5;
+            label3.Text = "2453 Atenciones";
+            // 
+            // materialProgressBar2
+            // 
+            materialProgressBar2.Depth = 0;
+            materialProgressBar2.Location = new Point(17, 70);
+            materialProgressBar2.MouseState = MaterialSkin.MouseState.HOVER;
+            materialProgressBar2.Name = "materialProgressBar2";
+            materialProgressBar2.Size = new Size(220, 5);
+            materialProgressBar2.TabIndex = 4;
+            materialProgressBar2.Value = 95;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Roboto", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(17, 33);
+            label4.Name = "label4";
+            label4.Size = new Size(186, 23);
+            label4.TabIndex = 3;
+            label4.Text = "Clientes Satisfechos";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Roboto", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(27, 78);
+            label5.Name = "label5";
+            label5.Size = new Size(33, 13);
+            label5.TabIndex = 8;
+            label5.Text = "100%";
+            // 
+            // materialProgressBar3
+            // 
+            materialProgressBar3.Depth = 0;
+            materialProgressBar3.Location = new Point(27, 70);
+            materialProgressBar3.MouseState = MaterialSkin.MouseState.HOVER;
+            materialProgressBar3.Name = "materialProgressBar3";
+            materialProgressBar3.Size = new Size(220, 5);
+            materialProgressBar3.TabIndex = 7;
+            materialProgressBar3.Value = 100;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Roboto", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(27, 33);
+            label6.Name = "label6";
+            label6.Size = new Size(170, 23);
+            label6.TabIndex = 6;
+            label6.Text = "Entregas a Tiempo";
             // 
             // StartApp
             // 
@@ -522,6 +745,13 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Taller Villalba Oleas";
             MTCStartapp.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            materialCard3.ResumeLayout(false);
+            materialCard3.PerformLayout();
+            materialCard2.ResumeLayout(false);
+            materialCard2.PerformLayout();
+            materialCard1.ResumeLayout(false);
+            materialCard1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvClients).EndInit();
@@ -558,5 +788,21 @@
         private MaterialSkin.Controls.MaterialButton mbtnAddClient;
         private DataGridView dgvClients;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
+        private MaterialSkin.Controls.MaterialCard materialCard1;
+        private Button button1;
+        private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton1;
+        private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton3;
+        private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton2;
+        private MaterialSkin.Controls.MaterialCard materialCard3;
+        private MaterialSkin.Controls.MaterialCard materialCard2;
+        private Label label1;
+        private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
+        private Label label3;
+        private Label label4;
+        private MaterialSkin.Controls.MaterialProgressBar materialProgressBar2;
+        private Label label5;
+        private Label label6;
+        private MaterialSkin.Controls.MaterialProgressBar materialProgressBar3;
+        private Label label2;
     }
 }

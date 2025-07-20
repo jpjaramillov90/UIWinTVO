@@ -73,6 +73,16 @@ namespace UIWinTVO.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap check {
+            get {
+                object obj = ResourceManager.GetObject("check", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CLIENTS {
             get {
                 object obj = ResourceManager.GetObject("CLIENTS", resourceCulture);
@@ -116,6 +126,26 @@ namespace UIWinTVO.Properties {
         internal static System.Drawing.Bitmap logo_Taller_Oleas {
             get {
                 object obj = ResourceManager.GetObject("logo_Taller_Oleas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap satisfaction {
+            get {
+                object obj = ResourceManager.GetObject("satisfaction", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap satisfaction1 {
+            get {
+                object obj = ResourceManager.GetObject("satisfaction1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

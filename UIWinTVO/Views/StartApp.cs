@@ -38,7 +38,7 @@ namespace UIWinTVO.Views
             {
                 var listClient = await _tvoAPIService.GetAsync<List<ClientDTO>>("Client/ListClients");
                 dgvClients.DataSource = listClient;
-                dgvClients.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.Fill;
+                dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
             {
@@ -46,10 +46,50 @@ namespace UIWinTVO.Views
             }
         }
 
+        public async Task loadStatusClient()
+        {
+            try
+            {
+                var listStatusClient = await _tvoAPIService.GetAsync<List<ClientStatusDTO>>("ClientStatus/ListClientStatus");
+                mcbStatusClient.DataSource = listStatusClient;
+                mcbStatusClient.DisplayMember = "clientStatus1";
+                mcbStatusClient.ValueMember = "idClientStatus";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: NO se listaron los estados para los clientes {ex.Message}");
+            }
+        }
+
 
         private async void tabPage2_Click(object sender, EventArgs e)
         {
             await loadClient();
+            await loadStatusClient();
         }
+
+        private async void mbtnAddClient_Click(object sender, EventArgs e)
+        {
+            var newClient = new ClientDTO
+            {
+                nui = txtNUIClient.Text,
+                firstName = txtFirstNameClient.Text,
+                lastName = txtLastNameClient.Text,
+                phone = txtPhoneClient.Text,
+                mail = txtMailClient.Text,
+                addressClient = txtAddressClient.Text,
+                passwordClient = txtPasswordClient.Text,
+                idClientStatus = mcbStatusClient.SelectedIndex == -1 ? null : (int?)mcbStatusClient.SelectedValue
+            };
+            try
+            {
+                await _tvoAPIService.insertObject(newClient, "Client/InsertClient", "client");
+                await loadClient();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: No se pudo agregar el cliente. Detalle: {ex.Message}");
+            }
+        }
     }
 }
