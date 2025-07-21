@@ -32,6 +32,8 @@ namespace UIWinTVO.Views
             Load += tabPage2_Click;
 
         }
+
+        // Metodos para Clientes
         public async Task loadClient()
         {
             try
@@ -90,6 +92,6 @@ namespace UIWinTVO.Views
             {
                 MessageBox.Show($"Error: No se pudo agregar el cliente. Detalle: {ex.Message}");
             }
-        }
+        }        //Metodos para Empleados
     }
 }
