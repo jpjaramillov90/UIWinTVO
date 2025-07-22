@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartApp));
             MTCStartapp = new MaterialSkin.Controls.MaterialTabControl();
             Home = new TabPage();
+            btnExit = new MaterialSkin.Controls.MaterialButton();
             materialFloatingActionButton3 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             materialFloatingActionButton2 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             materialCard3 = new MaterialSkin.Controls.MaterialCard();
@@ -132,8 +133,6 @@
             materialLabel35 = new MaterialSkin.Controls.MaterialLabel();
             txtIdWO = new MaterialSkin.Controls.MaterialTextBox();
             materialLabel36 = new MaterialSkin.Controls.MaterialLabel();
-            Budgets = new TabPage();
-            Admin = new TabPage();
             AssetsIcons = new ImageList(components);
             MTCStartapp.SuspendLayout();
             Home.SuspendLayout();
@@ -157,8 +156,6 @@
             MTCStartapp.Controls.Add(TransportData);
             MTCStartapp.Controls.Add(Employee);
             MTCStartapp.Controls.Add(workOrder);
-            MTCStartapp.Controls.Add(Budgets);
-            MTCStartapp.Controls.Add(Admin);
             MTCStartapp.Depth = 0;
             MTCStartapp.Dock = DockStyle.Fill;
             MTCStartapp.ImageList = AssetsIcons;
@@ -172,6 +169,7 @@
             // 
             // Home
             // 
+            Home.Controls.Add(btnExit);
             Home.Controls.Add(materialFloatingActionButton3);
             Home.Controls.Add(materialFloatingActionButton2);
             Home.Controls.Add(materialCard3);
@@ -188,6 +186,27 @@
             Home.TabIndex = 0;
             Home.Text = "Home";
             Home.UseVisualStyleBackColor = true;
+            // 
+            // btnExit
+            // 
+            btnExit.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnExit.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnExit.Depth = 0;
+            btnExit.HighEmphasis = true;
+            btnExit.Icon = Properties.Resources.exit;
+            btnExit.Image = Properties.Resources.exit;
+            btnExit.Location = new Point(970, 693);
+            btnExit.Margin = new Padding(4, 6, 4, 6);
+            btnExit.MouseState = MaterialSkin.MouseState.HOVER;
+            btnExit.Name = "btnExit";
+            btnExit.NoAccentTextColor = Color.Empty;
+            btnExit.Size = new Size(89, 36);
+            btnExit.TabIndex = 6;
+            btnExit.Text = "Salir";
+            btnExit.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnExit.UseAccentColor = false;
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // materialFloatingActionButton3
             // 
@@ -1810,28 +1829,6 @@
             materialLabel36.TabIndex = 49;
             materialLabel36.Text = "Id:";
             // 
-            // Budgets
-            // 
-            Budgets.ImageKey = "budget.png";
-            Budgets.Location = new Point(4, 39);
-            Budgets.Name = "Budgets";
-            Budgets.Padding = new Padding(3);
-            Budgets.Size = new Size(1186, 790);
-            Budgets.TabIndex = 3;
-            Budgets.Text = "Presupuesto";
-            Budgets.UseVisualStyleBackColor = true;
-            // 
-            // Admin
-            // 
-            Admin.ImageKey = "admin.png";
-            Admin.Location = new Point(4, 39);
-            Admin.Name = "Admin";
-            Admin.Padding = new Padding(3);
-            Admin.Size = new Size(1186, 790);
-            Admin.TabIndex = 6;
-            Admin.Text = "Admin";
-            Admin.UseVisualStyleBackColor = true;
-            // 
             // AssetsIcons
             // 
             AssetsIcons.ColorDepth = ColorDepth.Depth32Bit;
@@ -1868,6 +1865,7 @@
             Text = "Taller Villalba Oleas";
             MTCStartapp.ResumeLayout(false);
             Home.ResumeLayout(false);
+            Home.PerformLayout();
             materialCard3.ResumeLayout(false);
             materialCard3.PerformLayout();
             materialCard2.ResumeLayout(false);
@@ -1935,7 +1933,6 @@
         private Label label6;
         private MaterialSkin.Controls.MaterialProgressBar materialProgressBar3;
         private Label label2;
-        private TabPage Budgets;
         private MaterialSkin.Controls.MaterialLabel materialLabel9;
         private MaterialSkin.Controls.MaterialButton btnClearEmployee;
         private MaterialSkin.Controls.MaterialButton btnEditEmployee;
@@ -1980,7 +1977,6 @@
         private MaterialSkin.Controls.MaterialComboBox mcbCoopTransData;
         private MaterialSkin.Controls.MaterialLabel materialLabel20;
         private TabPage workOrder;
-        private TabPage Admin;
         private MaterialSkin.Controls.MaterialComboBox materialComboBox1;
         private MaterialSkin.Controls.MaterialLabel materialLabel22;
         private MaterialSkin.Controls.MaterialButton materialButton1;
@@ -2003,5 +1999,6 @@
         private MaterialSkin.Controls.MaterialButton btnClearWO;
         private MaterialSkin.Controls.MaterialButton btnEditWO;
         private MaterialSkin.Controls.MaterialComboBox mcbEmployeeWO;
+        private MaterialSkin.Controls.MaterialButton btnExit;
     }
 }

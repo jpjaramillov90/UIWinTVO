@@ -46,7 +46,7 @@ namespace UIWinTVO.Views
 
                 var clientStatusDescriptions = listStatusClient.ToDictionary(
                     cs => cs.idClientStatus,
-                    cs => cs.clientStatus1 
+                    cs => cs.clientStatus1
                 );
 
                 var displayClients = listClient.Select(c => new
@@ -58,11 +58,11 @@ namespace UIWinTVO.Views
                     c.phone,
                     c.mail,
                     c.addressClient,
-                    c.passwordClient, 
+                    c.passwordClient,
                     idClientStatus = c.idClientStatus,
                     ClientStatusName = c.idClientStatus.HasValue && clientStatusDescriptions.ContainsKey(c.idClientStatus.Value)
                                        ? clientStatusDescriptions[c.idClientStatus.Value]
-                                       : "Desconocido" 
+                                       : "Desconocido"
                 }).ToList();
 
                 dgvClients.DataSource = displayClients;
@@ -455,18 +455,101 @@ namespace UIWinTVO.Views
                 MessageBox.Show($"Error: No se listaron las cooperativas, {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private async Task loadTransportData()
         {
             try
             {
+                // Obtener todos los datos necesarios
                 var listTransportData = await _tvoAPIService.GetAsync<List<TransportDataDTO>>("TransportData/ListTransportData");
-                dgvTransportData.DataSource = listTransportData;
+                var listTransports = await _tvoAPIService.GetAsync<List<TransportDTO>>("Transport/ListTransport");
+                var listCooperatives = await _tvoAPIService.GetAsync<List<CooperativeDTO>>("Cooperative/ListCooperatives");
+                var listClients = await _tvoAPIService.GetAsync<List<ClientDTO>>("Client/ListClients");
+
+                // Crear diccionarios para búsquedas rápidas (versión corregida)
+                var transportTypes = listTransports?.ToDictionary(
+                    t => t.idTransport,
+                    t => t.typeTransport
+                ) ?? new Dictionary<int, string>();
+
+                var cooperativeNames = listCooperatives?.ToDictionary(
+                    c => c.idCooperative,
+                    c => c.nameCooperative
+                ) ?? new Dictionary<int, string>();
+
+                var clientNames = listClients?.ToDictionary(
+                    cl => cl.idClient,
+                    cl => $"{cl.firstName} {cl.lastName}"
+                ) ?? new Dictionary<int, string>();
+
+                // Formatear los datos para mostrar
+                var displayTransportData = listTransportData.Select(td => new
+                {
+                    td.idTransportData,
+                    Plate = td.plate,
+                    Number = td.num,
+                    Chassis = td.chassis,
+
+                    // Mostrar tipo de transporte (versión corregida)
+                    TransportType = td.idTransport.HasValue && transportTypes.TryGetValue(td.idTransport.Value, out var transportName)
+                                   ? transportName
+                                   : "No especificado",
+
+                    // Mostrar nombre de cooperativa (versión corregida)
+                    CooperativeName = td.idCooperative.HasValue && cooperativeNames.TryGetValue(td.idCooperative.Value, out var coopName)
+                                     ? coopName
+                                     : "No especificada",
+
+                    // Mostrar nombre completo del cliente (versión corregida)
+                    ClientFullName = td.idClient.HasValue && clientNames.TryGetValue(td.idClient.Value, out var clientName)
+                                    ? clientName
+                                    : "No especificado",
+
+                    // Mantener los IDs ocultos para referencia
+                    idTransport = td.idTransport,
+                    idCooperative = td.idCooperative,
+                    idClient = td.idClient
+                }).ToList();
+
+                // Asignar datos al DataGridView
+                dgvTransportData.DataSource = displayTransportData;
                 dgvTransportData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Configurar nombres de encabezados
+                if (dgvTransportData.Columns.Contains("idTransportData"))
+                    dgvTransportData.Columns["idTransportData"].HeaderText = "ID";
+
+                if (dgvTransportData.Columns.Contains("Plate"))
+                    dgvTransportData.Columns["Plate"].HeaderText = "Placa";
+
+                if (dgvTransportData.Columns.Contains("Number"))
+                    dgvTransportData.Columns["Number"].HeaderText = "Número";
+
+                if (dgvTransportData.Columns.Contains("Chassis"))
+                    dgvTransportData.Columns["Chassis"].HeaderText = "Chasis";
+
+                if (dgvTransportData.Columns.Contains("TransportType"))
+                    dgvTransportData.Columns["TransportType"].HeaderText = "Tipo de Transporte";
+
+                if (dgvTransportData.Columns.Contains("CooperativeName"))
+                    dgvTransportData.Columns["CooperativeName"].HeaderText = "Cooperativa";
+
+                if (dgvTransportData.Columns.Contains("ClientFullName"))
+                    dgvTransportData.Columns["ClientFullName"].HeaderText = "Propietario";
+
+                // Ocultar columnas de IDs
+                var columnsToHide = new[] { "idTransport", "idCooperative", "idClient" };
+                foreach (var column in columnsToHide)
+                {
+                    if (dgvTransportData.Columns.Contains(column))
+                        dgvTransportData.Columns[column].Visible = false;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: No se listaron los datos de transporte, {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar datos de transporte: {ex.Message}",
+                               "Error",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
             }
         }
 
@@ -510,34 +593,27 @@ namespace UIWinTVO.Views
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvTransportData.Rows[e.RowIndex];
-                txtIdTransportData.Text = row.Cells["idTransportData"].Value.ToString();
-                txtPlateTransportData.Text = row.Cells["plate"].Value.ToString();
-                txtChassisTransportData.Text = row.Cells["chassis"].Value.ToString();
-                txtNumTransportData.Text = row.Cells["num"].Value.ToString();
-                if (row.Cells["idTransport"].Value != null)
-                {
-                    mcbTypeTransTransportData.SelectedValue = row.Cells["idTransport"].Value;
-                }
-                else
-                {
+
+                // Usar los mismos nombres de columnas que en loadTransportData()
+                txtIdTransportData.Text = row.Cells["idTransportData"].Value?.ToString() ?? "";
+                txtPlateTransportData.Text = row.Cells["Plate"].Value?.ToString() ?? "";  // Cambiado de "plate" a "Plate"
+                txtChassisTransportData.Text = row.Cells["Chassis"].Value?.ToString() ?? "";  // Cambiado de "chassis" a "Chassis"
+                txtNumTransportData.Text = row.Cells["Number"].Value?.ToString() ?? "";  // Cambiado de "num" a "Number"
+
+                // Manejo de ComboBoxes con seguridad mejorada
+                mcbTypeTransTransportData.SelectedValue = row.Cells["idTransport"].Value ?? -1;
+                mcbCoopTransData.SelectedValue = row.Cells["idCooperative"].Value ?? -1;
+                mcbClientsTransportData.SelectedValue = row.Cells["idClient"].Value ?? -1;
+
+                // Si no hay valor seleccionado, establecer índice -1
+                if (mcbTypeTransTransportData.SelectedValue == null || (int)mcbTypeTransTransportData.SelectedValue == -1)
                     mcbTypeTransTransportData.SelectedIndex = -1;
-                }
-                if (row.Cells["idCooperative"].Value != null)
-                {
-                    mcbCoopTransData.SelectedValue = row.Cells["idCooperative"].Value;
-                }
-                else
-                {
+
+                if (mcbCoopTransData.SelectedValue == null || (int)mcbCoopTransData.SelectedValue == -1)
                     mcbCoopTransData.SelectedIndex = -1;
-                }
-                if (row.Cells["idClient"].Value != null)
-                {
-                    mcbClientsTransportData.SelectedValue = row.Cells["idClient"].Value;
-                }
-                else
-                {
+
+                if (mcbClientsTransportData.SelectedValue == null || (int)mcbClientsTransportData.SelectedValue == -1)
                     mcbClientsTransportData.SelectedIndex = -1;
-                }
             }
         }
 
@@ -665,7 +741,7 @@ namespace UIWinTVO.Views
 
                 var orderStatusDescriptions = orderStatuses.ToDictionary(
                     os => os.idOrderStatus,
-                    os => os.orderStatus1 
+                    os => os.orderStatus1
                 );
 
                 var displayWorkOrders = listWorkOrders.Select(wo => new
@@ -798,8 +874,14 @@ namespace UIWinTVO.Views
                 MessageBox.Show($"Error: No se pudo modificar la orden de trabajo. Detalle: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         // Métodos para presupuestos
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            FRMLogin loginForm = new FRMLogin();
+            this.Hide(); 
+            loginForm.ShowDialog(); 
+            this.Close(); 
+        }
 
     }
 }
