@@ -28,13 +28,25 @@ namespace UIWinTVO.Controller
         }
         public async Task insertObject<T>(T entity, string endPoint, string nameEntity) //-> Metodo genérico para insertar datos a la API
         {
-            var json = JsonConvert.SerializeObject(entity); // -> Comvierte el json a DTO
+            var json = JsonConvert.SerializeObject(entity); // -> Convierte el json a DTO
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"{_baseURL}/{endPoint}", content);
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
                 throw new HttpRequestException($"Error : No se puede insertar en {nameEntity}. Detalle: {errorContent}");
+            }
+        }
+
+        public async Task updateObject<T>(T entity, string endPoint, string nameEntity) //-> Metodo genérico para actualizar datos a la API
+        {
+            var json = JsonConvert.SerializeObject(entity); // -> Convierte el json a DTO
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"{_baseURL}/{endPoint}", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"Error : No se puede actualizar en {nameEntity}. Detalle: {errorContent}");
             }
         }
 
