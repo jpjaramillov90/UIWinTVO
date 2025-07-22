@@ -121,7 +121,7 @@
             btnClearWO = new MaterialSkin.Controls.MaterialButton();
             btnEditWO = new MaterialSkin.Controls.MaterialButton();
             dtpExpireWO = new DateTimePicker();
-            materialTextBox3 = new MaterialSkin.Controls.MaterialTextBox();
+            txtDescriptionWO = new MaterialSkin.Controls.MaterialTextBox();
             mcbOrderStatus = new MaterialSkin.Controls.MaterialComboBox();
             materialLabel22 = new MaterialSkin.Controls.MaterialLabel();
             btnAddWO = new MaterialSkin.Controls.MaterialButton();
@@ -130,7 +130,7 @@
             materialLabel31 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel34 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel35 = new MaterialSkin.Controls.MaterialLabel();
-            materialTextBox7 = new MaterialSkin.Controls.MaterialTextBox();
+            txtIdWO = new MaterialSkin.Controls.MaterialTextBox();
             materialLabel36 = new MaterialSkin.Controls.MaterialLabel();
             Budgets = new TabPage();
             Admin = new TabPage();
@@ -1548,7 +1548,7 @@
             workOrder.Controls.Add(btnClearWO);
             workOrder.Controls.Add(btnEditWO);
             workOrder.Controls.Add(dtpExpireWO);
-            workOrder.Controls.Add(materialTextBox3);
+            workOrder.Controls.Add(txtDescriptionWO);
             workOrder.Controls.Add(mcbOrderStatus);
             workOrder.Controls.Add(materialLabel22);
             workOrder.Controls.Add(btnAddWO);
@@ -1557,7 +1557,7 @@
             workOrder.Controls.Add(materialLabel31);
             workOrder.Controls.Add(materialLabel34);
             workOrder.Controls.Add(materialLabel35);
-            workOrder.Controls.Add(materialTextBox7);
+            workOrder.Controls.Add(txtIdWO);
             workOrder.Controls.Add(materialLabel36);
             workOrder.ImageKey = "workOrder.png";
             workOrder.Location = new Point(4, 39);
@@ -1611,6 +1611,7 @@
             btnClearWO.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btnClearWO.UseAccentColor = false;
             btnClearWO.UseVisualStyleBackColor = false;
+            btnClearWO.Click += btnClearWO_Click;
             // 
             // btnEditWO
             // 
@@ -1630,6 +1631,7 @@
             btnEditWO.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btnEditWO.UseAccentColor = false;
             btnEditWO.UseVisualStyleBackColor = true;
+            btnEditWO.Click += btnEditWO_Click_1;
             // 
             // dtpExpireWO
             // 
@@ -1640,23 +1642,23 @@
             dtpExpireWO.TabIndex = 74;
             dtpExpireWO.Value = new DateTime(2025, 7, 21, 18, 46, 7, 0);
             // 
-            // materialTextBox3
+            // txtDescriptionWO
             // 
-            materialTextBox3.AnimateReadOnly = false;
-            materialTextBox3.BorderStyle = BorderStyle.None;
-            materialTextBox3.Depth = 0;
-            materialTextBox3.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialTextBox3.ForeColor = Color.Transparent;
-            materialTextBox3.LeadingIcon = null;
-            materialTextBox3.Location = new Point(168, 153);
-            materialTextBox3.MaxLength = 50;
-            materialTextBox3.MouseState = MaterialSkin.MouseState.OUT;
-            materialTextBox3.Multiline = false;
-            materialTextBox3.Name = "materialTextBox3";
-            materialTextBox3.Size = new Size(271, 50);
-            materialTextBox3.TabIndex = 73;
-            materialTextBox3.Text = "";
-            materialTextBox3.TrailingIcon = null;
+            txtDescriptionWO.AnimateReadOnly = false;
+            txtDescriptionWO.BorderStyle = BorderStyle.None;
+            txtDescriptionWO.Depth = 0;
+            txtDescriptionWO.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtDescriptionWO.ForeColor = Color.Transparent;
+            txtDescriptionWO.LeadingIcon = null;
+            txtDescriptionWO.Location = new Point(168, 153);
+            txtDescriptionWO.MaxLength = 50;
+            txtDescriptionWO.MouseState = MaterialSkin.MouseState.OUT;
+            txtDescriptionWO.Multiline = false;
+            txtDescriptionWO.Name = "txtDescriptionWO";
+            txtDescriptionWO.Size = new Size(271, 50);
+            txtDescriptionWO.TabIndex = 73;
+            txtDescriptionWO.Text = "";
+            txtDescriptionWO.TrailingIcon = null;
             // 
             // mcbOrderStatus
             // 
@@ -1710,6 +1712,7 @@
             btnAddWO.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btnAddWO.UseAccentColor = false;
             btnAddWO.UseVisualStyleBackColor = true;
+            btnAddWO.Click += btnAddWO_Click;
             // 
             // dgvWorkOrders
             // 
@@ -1775,24 +1778,24 @@
             materialLabel35.TabIndex = 51;
             materialLabel35.Text = "Empleado:";
             // 
-            // materialTextBox7
+            // txtIdWO
             // 
-            materialTextBox7.AnimateReadOnly = false;
-            materialTextBox7.BorderStyle = BorderStyle.None;
-            materialTextBox7.Depth = 0;
-            materialTextBox7.Enabled = false;
-            materialTextBox7.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            materialTextBox7.ForeColor = Color.Transparent;
-            materialTextBox7.LeadingIcon = null;
-            materialTextBox7.Location = new Point(168, 10);
-            materialTextBox7.MaxLength = 50;
-            materialTextBox7.MouseState = MaterialSkin.MouseState.OUT;
-            materialTextBox7.Multiline = false;
-            materialTextBox7.Name = "materialTextBox7";
-            materialTextBox7.Size = new Size(105, 50);
-            materialTextBox7.TabIndex = 50;
-            materialTextBox7.Text = "";
-            materialTextBox7.TrailingIcon = null;
+            txtIdWO.AnimateReadOnly = false;
+            txtIdWO.BorderStyle = BorderStyle.None;
+            txtIdWO.Depth = 0;
+            txtIdWO.Enabled = false;
+            txtIdWO.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtIdWO.ForeColor = Color.Transparent;
+            txtIdWO.LeadingIcon = null;
+            txtIdWO.Location = new Point(168, 10);
+            txtIdWO.MaxLength = 50;
+            txtIdWO.MouseState = MaterialSkin.MouseState.OUT;
+            txtIdWO.Multiline = false;
+            txtIdWO.Name = "txtIdWO";
+            txtIdWO.Size = new Size(105, 50);
+            txtIdWO.TabIndex = 50;
+            txtIdWO.Text = "";
+            txtIdWO.TrailingIcon = null;
             // 
             // materialLabel36
             // 
@@ -1992,10 +1995,10 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel31;
         private MaterialSkin.Controls.MaterialLabel materialLabel34;
         private MaterialSkin.Controls.MaterialLabel materialLabel35;
-        private MaterialSkin.Controls.MaterialTextBox materialTextBox7;
+        private MaterialSkin.Controls.MaterialTextBox txtIdWO;
         private MaterialSkin.Controls.MaterialLabel materialLabel36;
         private MaterialSkin.Controls.MaterialComboBox mcbOrderStatus;
-        private MaterialSkin.Controls.MaterialTextBox materialTextBox3;
+        private MaterialSkin.Controls.MaterialTextBox txtDescriptionWO;
         private DateTimePicker dtpExpireWO;
         private MaterialSkin.Controls.MaterialButton btnClearWO;
         private MaterialSkin.Controls.MaterialButton btnEditWO;

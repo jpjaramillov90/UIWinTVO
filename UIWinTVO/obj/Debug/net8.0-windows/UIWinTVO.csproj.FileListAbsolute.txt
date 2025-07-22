@@ -20,3 +20,4 @@ C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-wind
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.pdb
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.genruntimeconfig.cache
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\ref\UIWinTVO.dll
+C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.FRMLogin.resources

@@ -1,4 +1,5 @@
 ﻿using MaterialSkin;
+using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,12 +42,59 @@ namespace UIWinTVO.Views
             try
             {
                 var listClient = await _tvoAPIService.GetAsync<List<ClientDTO>>("Client/ListClients");
-                dgvClients.DataSource = listClient;
+                var listStatusClient = await _tvoAPIService.GetAsync<List<ClientStatusDTO>>("ClientStatus/ListClientStatus");
+
+                var clientStatusDescriptions = listStatusClient.ToDictionary(
+                    cs => cs.idClientStatus,
+                    cs => cs.clientStatus1 
+                );
+
+                var displayClients = listClient.Select(c => new
+                {
+                    c.idClient,
+                    c.nui,
+                    c.firstName,
+                    c.lastName,
+                    c.phone,
+                    c.mail,
+                    c.addressClient,
+                    c.passwordClient, 
+                    idClientStatus = c.idClientStatus,
+                    ClientStatusName = c.idClientStatus.HasValue && clientStatusDescriptions.ContainsKey(c.idClientStatus.Value)
+                                       ? clientStatusDescriptions[c.idClientStatus.Value]
+                                       : "Desconocido" 
+                }).ToList();
+
+                dgvClients.DataSource = displayClients;
                 dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                if (dgvClients.Columns.Contains("idClientStatus"))
+                    dgvClients.Columns["idClientStatus"].Visible = false;
+
+                if (dgvClients.Columns.Contains("passwordClient"))
+                    dgvClients.Columns["passwordClient"].Visible = false;
+
+                if (dgvClients.Columns.Contains("idClient"))
+                    dgvClients.Columns["idClient"].HeaderText = "Id Cliente";
+                if (dgvClients.Columns.Contains("nui"))
+                    dgvClients.Columns["nui"].HeaderText = "NUI";
+                if (dgvClients.Columns.Contains("firstName"))
+                    dgvClients.Columns["firstName"].HeaderText = "Nombre";
+                if (dgvClients.Columns.Contains("lastName"))
+                    dgvClients.Columns["lastName"].HeaderText = "Apellido";
+                if (dgvClients.Columns.Contains("phone"))
+                    dgvClients.Columns["phone"].HeaderText = "Teléfono";
+                if (dgvClients.Columns.Contains("mail"))
+                    dgvClients.Columns["mail"].HeaderText = "Correo";
+                if (dgvClients.Columns.Contains("addressClient"))
+                    dgvClients.Columns["addressClient"].HeaderText = "Dirección";
+
+                if (dgvClients.Columns.Contains("ClientStatusName"))
+                    dgvClients.Columns["ClientStatusName"].HeaderText = "Estado Cliente";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: NO se listaron los CLientes, {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: NO se listaron los Clientes. Detalle: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private async Task loadStatusClient()
@@ -197,12 +245,76 @@ namespace UIWinTVO.Views
             try
             {
                 var listEmployees = await _tvoAPIService.GetAsync<List<EmployeeDTO>>("Employee/ListEmployee");
-                dgvEmployee.DataSource = listEmployees;
+                var listRolEmployee = await _tvoAPIService.GetAsync<List<RolEmployeeDTO>>("RolEmployee/ListRolEmployee");
+                var listSpecialties = await _tvoAPIService.GetAsync<List<SpecialtiesDTO>>("Specialties/ListSpecialities");
+
+                var rolDescriptions = listRolEmployee.ToDictionary(
+                    rol => rol.idRolEmployee,
+                    rol => rol.descriptionRol
+                );
+
+                var specialtyDescriptions = listSpecialties.ToDictionary(
+                    spec => spec.idSpecialties,
+                    spec => spec.specialty
+                );
+
+                var displayEmployees = listEmployees.Select(emp => new
+                {
+                    emp.idEmployee,
+                    // Incluir firstName y lastName para que el CellContentClick los encuentre
+                    emp.firstName,   // <-- Añadir esta línea
+                    emp.lastName,    // <-- Añadir esta línea
+                    FullName = $"{emp.firstName} {emp.lastName}", // Esta es la columna que se mostrará
+                    emp.nui,
+                    emp.phone,
+                    emp.mail,
+                    emp.addressEmp,
+
+                    idRolEmployee = emp.idRolEmployee,
+                    idSpecialties = emp.idSpecialties,
+
+                    RolName = emp.idRolEmployee.HasValue && rolDescriptions.ContainsKey(emp.idRolEmployee.Value)
+                              ? rolDescriptions[emp.idRolEmployee.Value]
+                              : "Desconocido",
+                    SpecialtyName = emp.idSpecialties.HasValue && specialtyDescriptions.ContainsKey(emp.idSpecialties.Value)
+                                    ? specialtyDescriptions[emp.idSpecialties.Value]
+                                    : "Desconocida"
+                }).ToList();
+
+                dgvEmployee.DataSource = displayEmployees;
                 dgvEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Ocultar las columnas de ID y las de firstName/lastName si solo quieres ver FullName
+                if (dgvEmployee.Columns.Contains("idRolEmployee"))
+                    dgvEmployee.Columns["idRolEmployee"].Visible = false;
+                if (dgvEmployee.Columns.Contains("idSpecialties"))
+                    dgvEmployee.Columns["idSpecialties"].Visible = false;
+                if (dgvEmployee.Columns.Contains("firstName")) // <-- Ocultar si solo quieres ver FullName
+                    dgvEmployee.Columns["firstName"].Visible = false;
+                if (dgvEmployee.Columns.Contains("lastName"))  // <-- Ocultar si solo quieres ver FullName
+                    dgvEmployee.Columns["lastName"].Visible = false;
+
+                // Renombrar las cabeceras de las columnas visibles
+                if (dgvEmployee.Columns.Contains("idEmployee"))
+                    dgvEmployee.Columns["idEmployee"].HeaderText = "Id Empleado";
+                if (dgvEmployee.Columns.Contains("FullName"))
+                    dgvEmployee.Columns["FullName"].HeaderText = "Nombre Completo";
+                if (dgvEmployee.Columns.Contains("nui"))
+                    dgvEmployee.Columns["nui"].HeaderText = "NUI";
+                if (dgvEmployee.Columns.Contains("phone"))
+                    dgvEmployee.Columns["phone"].HeaderText = "Teléfono";
+                if (dgvEmployee.Columns.Contains("mail"))
+                    dgvEmployee.Columns["mail"].HeaderText = "Correo";
+                if (dgvEmployee.Columns.Contains("addressEmp"))
+                    dgvEmployee.Columns["addressEmp"].HeaderText = "Dirección";
+                if (dgvEmployee.Columns.Contains("RolName"))
+                    dgvEmployee.Columns["RolName"].HeaderText = "Rol";
+                if (dgvEmployee.Columns.Contains("SpecialtyName"))
+                    dgvEmployee.Columns["SpecialtyName"].HeaderText = "Especialidad";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: NO se listaron los CLientes, {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: NO se listaron los empleados. Detalle: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -536,17 +648,57 @@ namespace UIWinTVO.Views
                                 MessageBoxIcon.Error);
             }
         }
+
         private async Task loadWorkOrders()
         {
             try
             {
                 var listWorkOrders = await _tvoAPIService.GetAsync<List<WorkOrderDTO>>("WorkOrder/ListWorkOrders");
-                dgvWorkOrders.DataSource = listWorkOrders;
+
+                var employees = await _tvoAPIService.GetAsync<List<EmployeeDTO>>("Employee/ListEmployee");
+                var orderStatuses = await _tvoAPIService.GetAsync<List<OrderStatusDTO>>("OrderStatus/ListOrderStatus");
+
+                var employeeNames = employees.ToDictionary(
+                    emp => emp.idEmployee,
+                    emp => $"{emp.firstName} {emp.lastName}"
+                );
+
+                var orderStatusDescriptions = orderStatuses.ToDictionary(
+                    os => os.idOrderStatus,
+                    os => os.orderStatus1 
+                );
+
+                var displayWorkOrders = listWorkOrders.Select(wo => new
+                {
+                    wo.idWorkOrder,
+                    idEmployee = wo.idEmployee,
+                    idOrderStatus = wo.idOrderStatus,
+                    EmployeeName = wo.idEmployee.HasValue && employeeNames.ContainsKey(wo.idEmployee.Value) ? employeeNames[wo.idEmployee.Value] : "Desconocido",
+                    OrderStatusDescription = wo.idOrderStatus.HasValue && orderStatusDescriptions.ContainsKey(wo.idOrderStatus.Value) ? orderStatusDescriptions[wo.idOrderStatus.Value] : "Desconocido",
+                    wo.descriptionWO,
+                    wo.expires
+                }).ToList();
+                dgvWorkOrders.DataSource = displayWorkOrders;
                 dgvWorkOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                if (dgvWorkOrders.Columns.Contains("idEmployee"))
+                    dgvWorkOrders.Columns["idEmployee"].Visible = false;
+                if (dgvWorkOrders.Columns.Contains("idOrderStatus"))
+                    dgvWorkOrders.Columns["idOrderStatus"].Visible = false;
+                if (dgvWorkOrders.Columns.Contains("idWorkOrder"))
+                    dgvWorkOrders.Columns["idWorkOrder"].HeaderText = "Id Orden";
+                if (dgvWorkOrders.Columns.Contains("EmployeeName"))
+                    dgvWorkOrders.Columns["EmployeeName"].HeaderText = "Empleado";
+                if (dgvWorkOrders.Columns.Contains("OrderStatusDescription"))
+                    dgvWorkOrders.Columns["OrderStatusDescription"].HeaderText = "Estado";
+                if (dgvWorkOrders.Columns.Contains("descriptionWO"))
+                    dgvWorkOrders.Columns["descriptionWO"].HeaderText = "Descripción";
+                if (dgvWorkOrders.Columns.Contains("expires"))
+                    dgvWorkOrders.Columns["expires"].HeaderText = "Caducidad";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: No se listaron los datos de transporte, {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: No se listaron los datos de órdenes de trabajo. Detalle: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -559,10 +711,95 @@ namespace UIWinTVO.Views
 
         private void dgvWorkOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) 
-            { 
+            if (e.RowIndex >= 0)
+            {
                 DataGridViewRow row = dgvWorkOrders.Rows[e.RowIndex];
+                txtIdWO.Text = row.Cells["idWorkOrder"].Value.ToString();
+                txtDescriptionWO.Text = row.Cells["descriptionWO"].Value.ToString();
+                if (row.Cells["idEmployee"].Value != null)
+                {
+                    mcbEmployeeWO.SelectedValue = row.Cells["idEmployee"].Value;
+                }
+                else
+                {
+                    mcbEmployeeWO.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                }
+                if (row.Cells["idOrderStatus"].Value != null)
+                {
+                    mcbOrderStatus.SelectedValue = row.Cells["idOrderStatus"].Value;
+                }
+                else
+                {
+                    mcbOrderStatus.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                }
+                if (DateTime.TryParse(row.Cells["expires"].Value.ToString(), out DateTime expires))
+                {
+                    dtpExpireWO.Value = expires;
+                }
+                else
+                {
+                    dtpExpireWO.Value = DateTime.Now; // Valor por defecto si no se puede parsear
+                }
             }
         }
+
+        private void clearFieldsWorkOrder()
+        {
+            txtIdWO.Clear();
+            txtDescriptionWO.Clear();
+            mcbEmployeeWO.SelectedIndex = -1;
+            mcbOrderStatus.SelectedIndex = -1;
+            dtpExpireWO.Value = DateTime.Now;
+        }
+
+        private void btnClearWO_Click(object sender, EventArgs e)
+        {
+            clearFieldsWorkOrder();
+        }
+
+        private async void btnAddWO_Click(object sender, EventArgs e)
+        {
+            var newWorkOrder = new WorkOrderDTO
+            {
+                descriptionWO = txtDescriptionWO.Text,
+                idEmployee = mcbEmployeeWO.SelectedIndex == -1 ? null : (int?)mcbEmployeeWO.SelectedValue,
+                idOrderStatus = mcbOrderStatus.SelectedIndex == -1 ? null : (int?)mcbOrderStatus.SelectedValue,
+                expires = DateOnly.FromDateTime(dtpExpireWO.Value)
+            };
+            try
+            {
+                await _tvoAPIService.insertObject(newWorkOrder, "WorkOrder/InsertWorkOrder", "workOrder");
+                loadWorkOrders();
+                clearFieldsWorkOrder();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: No se pudo agregar la orden de trabajo. Detalle: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private async void btnEditWO_Click_1(object sender, EventArgs e)
+        {
+            var updatedWorkOrder = new WorkOrderDTO
+            {
+                idWorkOrder = int.Parse(txtIdWO.Text),
+                descriptionWO = txtDescriptionWO.Text,
+                idEmployee = mcbEmployeeWO.SelectedIndex == -1 ? null : (int?)mcbEmployeeWO.SelectedValue,
+                idOrderStatus = mcbOrderStatus.SelectedIndex == -1 ? null : (int?)mcbOrderStatus.SelectedValue,
+                expires = DateOnly.FromDateTime(dtpExpireWO.Value)
+            };
+            try
+            {
+                await _tvoAPIService.updateObject(updatedWorkOrder, "WorkOrder/UpdateWorkOrder", "workOrder");
+                loadWorkOrders();
+                clearFieldsWorkOrder();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: No se pudo modificar la orden de trabajo. Detalle: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Métodos para presupuestos
+
     }
 }
