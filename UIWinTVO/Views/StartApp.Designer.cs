@@ -139,7 +139,6 @@
             txtOrderStatus = new MaterialSkin.Controls.MaterialTextBox();
             txtStateOrderBudget = new MaterialSkin.Controls.MaterialLabel();
             btnClearBudget = new MaterialSkin.Controls.MaterialButton();
-            materialButton2 = new MaterialSkin.Controls.MaterialButton();
             btnViewDeatils = new MaterialSkin.Controls.MaterialButton();
             txtModelBudget = new MaterialSkin.Controls.MaterialTextBox();
             materialLabel39 = new MaterialSkin.Controls.MaterialLabel();
@@ -1863,7 +1862,6 @@
             Details.Controls.Add(txtOrderStatus);
             Details.Controls.Add(txtStateOrderBudget);
             Details.Controls.Add(btnClearBudget);
-            Details.Controls.Add(materialButton2);
             Details.Controls.Add(btnViewDeatils);
             Details.Controls.Add(txtModelBudget);
             Details.Controls.Add(materialLabel39);
@@ -1958,7 +1956,7 @@
             btnClearBudget.ForeColor = Color.Red;
             btnClearBudget.HighEmphasis = true;
             btnClearBudget.Icon = Properties.Resources.delete;
-            btnClearBudget.Location = new Point(973, 150);
+            btnClearBudget.Location = new Point(973, 90);
             btnClearBudget.Margin = new Padding(4, 6, 4, 6);
             btnClearBudget.MouseState = MaterialSkin.MouseState.HOVER;
             btnClearBudget.Name = "btnClearBudget";
@@ -1970,25 +1968,6 @@
             btnClearBudget.UseAccentColor = false;
             btnClearBudget.UseVisualStyleBackColor = false;
             btnClearBudget.Click += btnClearBudget_Click;
-            // 
-            // materialButton2
-            // 
-            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton2.Depth = 0;
-            materialButton2.HighEmphasis = true;
-            materialButton2.Icon = Properties.Resources.edit;
-            materialButton2.Location = new Point(973, 93);
-            materialButton2.Margin = new Padding(4, 6, 4, 6);
-            materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton2.Name = "materialButton2";
-            materialButton2.NoAccentTextColor = Color.Empty;
-            materialButton2.Size = new Size(127, 36);
-            materialButton2.TabIndex = 78;
-            materialButton2.Text = "Modificar";
-            materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton2.UseAccentColor = false;
-            materialButton2.UseVisualStyleBackColor = true;
             // 
             // btnViewDeatils
             // 
@@ -2381,7 +2360,6 @@
         private MaterialSkin.Controls.MaterialComboBox materialComboBox1;
         private MaterialSkin.Controls.MaterialLabel materialLabel22;
         private MaterialSkin.Controls.MaterialButton btnClearBudget;
-        private MaterialSkin.Controls.MaterialButton materialButton2;
         private MaterialSkin.Controls.MaterialButton btnAddWO;
         private DataGridView dgvWorkOrders;
         private MaterialSkin.Controls.MaterialLabel materialLabel23;
