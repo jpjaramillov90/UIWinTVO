@@ -119,6 +119,40 @@ namespace UIWinTVO.Views
 
         private async void mbtnAddClient_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtIdClient.Text) ||
+                    string.IsNullOrWhiteSpace(txtNUIClient.Text) ||
+                    string.IsNullOrWhiteSpace(txtFirstNameClient.Text) ||
+                    string.IsNullOrWhiteSpace(txtLastNameClient.Text) ||
+                    string.IsNullOrWhiteSpace(txtPhoneClient.Text) ||
+                    string.IsNullOrWhiteSpace(txtMailClient.Text) ||
+                    string.IsNullOrWhiteSpace(txtPasswordClient.Text))
+            {
+                MessageBox.Show("Todos los campos obligatorios deben ser completados.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validator.IsValidNUI(txtNUIClient.Text))
+            {
+                MessageBox.Show("El NUI/pasaporte debe tener al menos 5 caracteres.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validator.IsValidEmail(txtMailClient.Text))
+            {
+                MessageBox.Show("Por favor ingrese un correo electrónico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyLetters(txtFirstNameClient.Text) || !Validator.ContainsOnlyLetters(txtLastNameClient.Text))
+            {
+                MessageBox.Show("El nombre y apellido solo deben contener letras.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyNumbers(txtPhoneClient.Text))
+            {
+                MessageBox.Show("El teléfono solo debe contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var newClient = new ClientDTO
             {
                 nui = txtNUIClient.Text,
@@ -130,11 +164,13 @@ namespace UIWinTVO.Views
                 passwordClient = txtPasswordClient.Text,
                 idClientStatus = mcbStatusClient.SelectedIndex == -1 ? null : (int?)mcbStatusClient.SelectedValue
             };
+
             try
             {
                 await _tvoAPIService.insertObject(newClient, "Client/InsertClient", "client");
                 await loadClient();
                 clearFieldsClient();
+                MessageBox.Show("Cliente agregado con exito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -144,6 +180,56 @@ namespace UIWinTVO.Views
 
         private async void mbtnEditClient_Click(object sender, EventArgs e)
         {
+            // Validación de campos obligatorios
+            if (string.IsNullOrWhiteSpace(txtIdClient.Text) ||
+                string.IsNullOrWhiteSpace(txtNUIClient.Text) ||
+                string.IsNullOrWhiteSpace(txtFirstNameClient.Text) ||
+                string.IsNullOrWhiteSpace(txtLastNameClient.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneClient.Text) ||
+                string.IsNullOrWhiteSpace(txtMailClient.Text) ||
+                string.IsNullOrWhiteSpace(txtPasswordClient.Text))
+            {
+                MessageBox.Show("Todos los campos obligatorios deben ser completados.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyNumbers(txtIdClient.Text))
+            {
+                MessageBox.Show("El ID debe ser un valor numérico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.IsValidNUI(txtNUIClient.Text))
+            {
+                MessageBox.Show("El NUI debe tener al menos 5 caracteres.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.IsValidEmail(txtMailClient.Text))
+            {
+                MessageBox.Show("Por favor ingrese un correo electrónico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyLetters(txtFirstNameClient.Text) ||
+                !Validator.ContainsOnlyLetters(txtLastNameClient.Text))
+            {
+                MessageBox.Show("El nombre y apellido solo deben contener letras.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyNumbers(txtPhoneClient.Text))
+            {
+                MessageBox.Show("El teléfono solo debe contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (txtPasswordClient.Text.Length < 8)
+            {
+                MessageBox.Show("La contraseña debe tener al menos 8 caracteres.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var updatedClient = new ClientDTO
             {
                 idClient = int.Parse(txtIdClient.Text),
@@ -156,11 +242,13 @@ namespace UIWinTVO.Views
                 passwordClient = txtPasswordClient.Text,
                 idClientStatus = mcbStatusClient.SelectedIndex == -1 ? null : (int?)mcbStatusClient.SelectedValue
             };
+
             try
             {
                 await _tvoAPIService.updateObject(updatedClient, "Client/UpdateClient", "client");
                 await loadClient();
                 clearFieldsClient();
+                MessageBox.Show("Cliente actualizado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -187,7 +275,7 @@ namespace UIWinTVO.Views
                 }
                 else
                 {
-                    mcbStatusClient.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                    mcbStatusClient.SelectedIndex = -1;
                 }
             }
         }
@@ -201,7 +289,7 @@ namespace UIWinTVO.Views
             txtMailClient.Clear();
             txtAddressClient.Clear();
             txtPasswordClient.Clear();
-            mcbStatusClient.SelectedIndex = -1; // Desselecciona el combo
+            mcbStatusClient.SelectedIndex = -1;
         }
         private void mbtnClearClient_Click(object sender, EventArgs e)
         {
@@ -261,10 +349,9 @@ namespace UIWinTVO.Views
                 var displayEmployees = listEmployees.Select(emp => new
                 {
                     emp.idEmployee,
-                    // Incluir firstName y lastName para que el CellContentClick los encuentre
-                    emp.firstName,   // <-- Añadir esta línea
-                    emp.lastName,    // <-- Añadir esta línea
-                    FullName = $"{emp.firstName} {emp.lastName}", // Esta es la columna que se mostrará
+                    emp.firstName,
+                    emp.lastName,
+                    FullName = $"{emp.firstName} {emp.lastName}",
                     emp.nui,
                     emp.phone,
                     emp.mail,
@@ -284,17 +371,15 @@ namespace UIWinTVO.Views
                 dgvEmployee.DataSource = displayEmployees;
                 dgvEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                // Ocultar las columnas de ID y las de firstName/lastName si solo quieres ver FullName
                 if (dgvEmployee.Columns.Contains("idRolEmployee"))
                     dgvEmployee.Columns["idRolEmployee"].Visible = false;
                 if (dgvEmployee.Columns.Contains("idSpecialties"))
                     dgvEmployee.Columns["idSpecialties"].Visible = false;
-                if (dgvEmployee.Columns.Contains("firstName")) // <-- Ocultar si solo quieres ver FullName
+                if (dgvEmployee.Columns.Contains("firstName"))
                     dgvEmployee.Columns["firstName"].Visible = false;
-                if (dgvEmployee.Columns.Contains("lastName"))  // <-- Ocultar si solo quieres ver FullName
+                if (dgvEmployee.Columns.Contains("lastName"))
                     dgvEmployee.Columns["lastName"].Visible = false;
 
-                // Renombrar las cabeceras de las columnas visibles
                 if (dgvEmployee.Columns.Contains("idEmployee"))
                     dgvEmployee.Columns["idEmployee"].HeaderText = "Id Empleado";
                 if (dgvEmployee.Columns.Contains("FullName"))
@@ -334,8 +419,8 @@ namespace UIWinTVO.Views
             txtPhoneEmployee.Clear();
             txtMailEmployee.Clear();
             txtAddressEmployee.Clear();
-            mcbRolEmployee.SelectedIndex = -1; // Desselecciona el combo
-            mcbSpecialtiesEmployee.SelectedIndex = -1; // Desselecciona el combo
+            mcbRolEmployee.SelectedIndex = -1;
+            mcbSpecialtiesEmployee.SelectedIndex = -1;
         }
 
         private void btnClearEmployee_Click(object sender, EventArgs e)
@@ -361,7 +446,7 @@ namespace UIWinTVO.Views
                 }
                 else
                 {
-                    mcbRolEmployee.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                    mcbRolEmployee.SelectedIndex = -1;
                 }
                 if (row.Cells["idSpecialties"].Value != null)
                 {
@@ -369,13 +454,41 @@ namespace UIWinTVO.Views
                 }
                 else
                 {
-                    mcbSpecialtiesEmployee.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                    mcbSpecialtiesEmployee.SelectedIndex = -1;
                 }
             }
         }
 
         private async void btnAddEmployee_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNUIEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtFirstNameEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtLastNameEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtMailEmployee.Text))
+            {
+                MessageBox.Show("Todos los campos marcados como obligatorios deben ser completados.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.IsValidEmail(txtMailEmployee.Text))
+            {
+                MessageBox.Show("Por favor ingrese un correo electrónico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyLetters(txtFirstNameEmployee.Text) || !Validator.ContainsOnlyLetters(txtLastNameEmployee.Text))
+            {
+                MessageBox.Show("El nombre y apellido solo deben contener letras.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyNumbers(txtPhoneEmployee.Text))
+            {
+                MessageBox.Show("El teléfono solo debe contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var newEmployee = new EmployeeDTO
             {
                 nui = txtNUIEmployee.Text,
@@ -387,11 +500,13 @@ namespace UIWinTVO.Views
                 idRolEmployee = mcbRolEmployee.SelectedIndex == -1 ? null : (int?)mcbRolEmployee.SelectedValue,
                 idSpecialties = mcbSpecialtiesEmployee.SelectedIndex == -1 ? null : (int?)mcbSpecialtiesEmployee.SelectedValue
             };
+
             try
             {
                 await _tvoAPIService.insertObject(newEmployee, "Employee/InsertEmployee", "employee");
                 await loadEmployees();
                 ClearFieldsEmployee();
+                MessageBox.Show("Empleado agregado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -401,10 +516,43 @@ namespace UIWinTVO.Views
 
         private async void btnEditEmployee_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtIdEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtNUIEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtFirstNameEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtLastNameEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneEmployee.Text) ||
+                string.IsNullOrWhiteSpace(txtMailEmployee.Text))
+            {
+                MessageBox.Show("Todos los campos marcados como obligatorios deben ser completados.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validator.IsValidNUI(txtNUIEmployee.Text))
+            {
+                MessageBox.Show("El NUI/pasaporte debe tener al menos 5 caracteres.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validator.IsValidEmail(txtMailEmployee.Text))
+            {
+                MessageBox.Show("Por favor ingrese un correo electrónico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!Validator.ContainsOnlyLetters(txtFirstNameEmployee.Text) ||
+                !Validator.ContainsOnlyLetters(txtLastNameEmployee.Text))
+            {
+                MessageBox.Show("El nombre y apellido solo deben contener letras.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Validator.ContainsOnlyNumbers(txtPhoneEmployee.Text))
+            {
+                MessageBox.Show("El teléfono solo debe contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var editEmployee = new EmployeeDTO
             {
                 idEmployee = int.Parse(txtIdEmployee.Text),
-                nui = txtNUIEmployee.Text,
+                nui = txtNUIEmployee.Text, 
                 firstName = txtFirstNameEmployee.Text,
                 lastName = txtLastNameEmployee.Text,
                 phone = txtPhoneEmployee.Text,
@@ -413,11 +561,13 @@ namespace UIWinTVO.Views
                 idRolEmployee = mcbRolEmployee.SelectedIndex == -1 ? null : (int?)mcbRolEmployee.SelectedValue,
                 idSpecialties = mcbSpecialtiesEmployee.SelectedIndex == -1 ? null : (int?)mcbSpecialtiesEmployee.SelectedValue
             };
+
             try
             {
                 await _tvoAPIService.updateObject(editEmployee, "Employee/UpdateEmployee", "employee");
                 await loadEmployees();
                 ClearFieldsEmployee();
+                MessageBox.Show("Empleado modificado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -459,13 +609,11 @@ namespace UIWinTVO.Views
         {
             try
             {
-                // Obtener todos los datos necesarios
                 var listTransportData = await _tvoAPIService.GetAsync<List<TransportDataDTO>>("TransportData/ListTransportData");
                 var listTransports = await _tvoAPIService.GetAsync<List<TransportDTO>>("Transport/ListTransport");
                 var listCooperatives = await _tvoAPIService.GetAsync<List<CooperativeDTO>>("Cooperative/ListCooperatives");
                 var listClients = await _tvoAPIService.GetAsync<List<ClientDTO>>("Client/ListClients");
 
-                // Crear diccionarios para búsquedas rápidas (versión corregida)
                 var transportTypes = listTransports?.ToDictionary(
                     t => t.idTransport,
                     t => t.typeTransport
@@ -481,7 +629,6 @@ namespace UIWinTVO.Views
                     cl => $"{cl.firstName} {cl.lastName}"
                 ) ?? new Dictionary<int, string>();
 
-                // Formatear los datos para mostrar
                 var displayTransportData = listTransportData.Select(td => new
                 {
                     td.idTransportData,
@@ -489,32 +636,26 @@ namespace UIWinTVO.Views
                     Number = td.num,
                     Chassis = td.chassis,
 
-                    // Mostrar tipo de transporte (versión corregida)
                     TransportType = td.idTransport.HasValue && transportTypes.TryGetValue(td.idTransport.Value, out var transportName)
                                    ? transportName
                                    : "No especificado",
 
-                    // Mostrar nombre de cooperativa (versión corregida)
                     CooperativeName = td.idCooperative.HasValue && cooperativeNames.TryGetValue(td.idCooperative.Value, out var coopName)
                                      ? coopName
                                      : "No especificada",
 
-                    // Mostrar nombre completo del cliente (versión corregida)
                     ClientFullName = td.idClient.HasValue && clientNames.TryGetValue(td.idClient.Value, out var clientName)
                                     ? clientName
                                     : "No especificado",
 
-                    // Mantener los IDs ocultos para referencia
                     idTransport = td.idTransport,
                     idCooperative = td.idCooperative,
                     idClient = td.idClient
                 }).ToList();
 
-                // Asignar datos al DataGridView
                 dgvTransportData.DataSource = displayTransportData;
                 dgvTransportData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                // Configurar nombres de encabezados
                 if (dgvTransportData.Columns.Contains("idTransportData"))
                     dgvTransportData.Columns["idTransportData"].HeaderText = "ID";
 
@@ -536,7 +677,6 @@ namespace UIWinTVO.Views
                 if (dgvTransportData.Columns.Contains("ClientFullName"))
                     dgvTransportData.Columns["ClientFullName"].HeaderText = "Propietario";
 
-                // Ocultar columnas de IDs
                 var columnsToHide = new[] { "idTransport", "idCooperative", "idClient" };
                 foreach (var column in columnsToHide)
                 {
@@ -559,17 +699,15 @@ namespace UIWinTVO.Views
             {
                 var listOwners = await _tvoAPIService.GetAsync<List<ClientDTO>>("Client/ListClients");
 
-                // Crear nueva lista con nombre completo y mantener el ID
                 var ownersWithFullName = listOwners.Select(owner => new
                 {
-                    FullName = $"{owner.firstName} {owner.lastName}", // Concatenación
-                    owner.idClient // Mantenemos el ID para ValueMember
+                    FullName = $"{owner.firstName} {owner.lastName}",
+                    owner.idClient
                 }).ToList();
 
-                // Asignar al ComboBox
                 mcbClientsTransportData.DataSource = ownersWithFullName;
-                mcbClientsTransportData.DisplayMember = "FullName"; // Mostrar nombre completo
-                mcbClientsTransportData.ValueMember = "idClient";   // ID como valor interno
+                mcbClientsTransportData.DisplayMember = "FullName";
+                mcbClientsTransportData.ValueMember = "idClient";
             }
             catch (Exception ex)
             {
@@ -594,18 +732,15 @@ namespace UIWinTVO.Views
             {
                 DataGridViewRow row = dgvTransportData.Rows[e.RowIndex];
 
-                // Usar los mismos nombres de columnas que en loadTransportData()
                 txtIdTransportData.Text = row.Cells["idTransportData"].Value?.ToString() ?? "";
-                txtPlateTransportData.Text = row.Cells["Plate"].Value?.ToString() ?? "";  // Cambiado de "plate" a "Plate"
-                txtChassisTransportData.Text = row.Cells["Chassis"].Value?.ToString() ?? "";  // Cambiado de "chassis" a "Chassis"
-                txtNumTransportData.Text = row.Cells["Number"].Value?.ToString() ?? "";  // Cambiado de "num" a "Number"
+                txtPlateTransportData.Text = row.Cells["Plate"].Value?.ToString() ?? "";
+                txtChassisTransportData.Text = row.Cells["Chassis"].Value?.ToString() ?? "";
+                txtNumTransportData.Text = row.Cells["Number"].Value?.ToString() ?? "";
 
-                // Manejo de ComboBoxes con seguridad mejorada
                 mcbTypeTransTransportData.SelectedValue = row.Cells["idTransport"].Value ?? -1;
                 mcbCoopTransData.SelectedValue = row.Cells["idCooperative"].Value ?? -1;
                 mcbClientsTransportData.SelectedValue = row.Cells["idClient"].Value ?? -1;
 
-                // Si no hay valor seleccionado, establecer índice -1
                 if (mcbTypeTransTransportData.SelectedValue == null || (int)mcbTypeTransTransportData.SelectedValue == -1)
                     mcbTypeTransTransportData.SelectedIndex = -1;
 
@@ -623,61 +758,135 @@ namespace UIWinTVO.Views
             txtPlateTransportData.Clear();
             txtChassisTransportData.Clear();
             txtNumTransportData.Clear();
-            mcbTypeTransTransportData.SelectedIndex = -1; // Desselecciona el combo
-            mcbCoopTransData.SelectedIndex = -1; // Desselecciona el combo
-            mcbClientsTransportData.SelectedIndex = -1; // Desselecciona el combo
+            mcbTypeTransTransportData.SelectedIndex = -1;
+            mcbCoopTransData.SelectedIndex = -1;
+            mcbClientsTransportData.SelectedIndex = -1;
         }
 
         private async void btnAddTransportData_Click(object sender, EventArgs e)
         {
+            // Validación de campos obligatorios
+            if (string.IsNullOrWhiteSpace(txtPlateTransportData.Text) ||
+                string.IsNullOrWhiteSpace(txtChassisTransportData.Text) ||
+                string.IsNullOrWhiteSpace(txtNumTransportData.Text))
+            {
+                MessageBox.Show("Placa, chasis y número son campos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de formato de placa (6-8 caracteres alfanuméricos)
+            if (!Validator.IsValidPlate(txtPlateTransportData.Text))
+            {
+                MessageBox.Show("La placa debe tener entre 6 y 8 caracteres alfanuméricos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de chasis único
+            bool chassisExists = await _tvoAPIService.IsChassisExists("TransportData/CheckChassisExists", txtChassisTransportData.Text);
+            if (chassisExists)
+            {
+                MessageBox.Show("El número de chasis ya está registrado en el sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de número (debe ser numérico y mayor a 0)
+            if (!Validator.ContainsOnlyNumbers(txtNumTransportData.Text) || !int.TryParse(txtNumTransportData.Text, out int numValue) || numValue <= 0)
+            {
+                MessageBox.Show("El número debe ser un valor numérico mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var newTransportData = new TransportDataDTO
             {
                 plate = txtPlateTransportData.Text,
                 chassis = txtChassisTransportData.Text,
-                num = int.TryParse(txtNumTransportData.Text, out int num) ? num : 0,
+                num = numValue, // Usamos el valor ya parseado
                 idTransport = mcbTypeTransTransportData.SelectedIndex == -1 ? null : (int?)mcbTypeTransTransportData.SelectedValue,
                 idCooperative = mcbCoopTransData.SelectedIndex == -1 ? null : (int?)mcbCoopTransData.SelectedValue,
                 idClient = mcbClientsTransportData.SelectedIndex == -1 ? null : (int?)mcbClientsTransportData.SelectedValue
             };
+
             try
             {
                 await _tvoAPIService.insertObject(newTransportData, "TransportData/InsertTransportData", "transportData");
                 await loadTransportData();
                 clearFieldsTransportData();
+                MessageBox.Show("Datos del vehículo registrados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: No se insedrtaron los datos de la unidad. Detalle: {ex.Message}",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                MessageBox.Show($"Error: No se pudieron registrar los datos del vehículo. Detalle: {ex.Message}",
+                              "Error",
+                              MessageBoxButtons.OK,
+                              MessageBoxIcon.Error);
             }
         }
 
         private async void btnEditTransportData_Click(object sender, EventArgs e)
         {
+            // Validación de campos obligatorios
+            if (string.IsNullOrWhiteSpace(txtIdTransportData.Text) ||
+                string.IsNullOrWhiteSpace(txtPlateTransportData.Text) ||
+                string.IsNullOrWhiteSpace(txtChassisTransportData.Text) ||
+                string.IsNullOrWhiteSpace(txtNumTransportData.Text))
+            {
+                MessageBox.Show("ID, placa, chasis y número son campos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de ID (debe ser numérico y mayor a 0)
+            if (!Validator.ContainsOnlyNumbers(txtIdTransportData.Text) || !int.TryParse(txtIdTransportData.Text, out int idValue) || idValue <= 0)
+            {
+                MessageBox.Show("El ID debe ser un valor numérico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de formato de placa (6-8 caracteres alfanuméricos)
+            if (!Validator.IsValidPlate(txtPlateTransportData.Text))
+            {
+                MessageBox.Show("La placa debe tener entre 6 y 8 caracteres alfanuméricos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de chasis único (verificando que no exista en otros registros)
+            bool chassisExists = await _tvoAPIService.IsChassisExists("TransportData/CheckChassisExists", txtChassisTransportData.Text);
+            if (chassisExists)
+            {
+                MessageBox.Show("El número de chasis ya está registrado en el sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validación de número (debe ser numérico y mayor a 0)
+            if (!Validator.ContainsOnlyNumbers(txtNumTransportData.Text) || !int.TryParse(txtNumTransportData.Text, out int numValue) || numValue <= 0)
+            {
+                MessageBox.Show("El número debe ser un valor numérico mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var updatedTransportData = new TransportDataDTO
             {
-                idTransportData = int.Parse(txtIdTransportData.Text),
+                idTransportData = idValue,
                 plate = txtPlateTransportData.Text,
                 chassis = txtChassisTransportData.Text,
-                num = int.TryParse(txtNumTransportData.Text, out int num) ? num : 0,
+                num = numValue,
                 idTransport = mcbTypeTransTransportData.SelectedIndex == -1 ? null : (int?)mcbTypeTransTransportData.SelectedValue,
                 idCooperative = mcbCoopTransData.SelectedIndex == -1 ? null : (int?)mcbCoopTransData.SelectedValue,
                 idClient = mcbClientsTransportData.SelectedIndex == -1 ? null : (int?)mcbClientsTransportData.SelectedValue
             };
+
             try
             {
                 await _tvoAPIService.updateObject(updatedTransportData, "TransportData/UpdateTransportData", "transportData");
                 await loadTransportData();
                 clearFieldsTransportData();
+                MessageBox.Show("Datos del vehículo actualizados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: No se pudo modificar los datos de la unidad. Detalle: {ex.Message}",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                MessageBox.Show($"Error: No se pudieron actualizar los datos del vehículo. Detalle: {ex.Message}",
+                              "Error",
+                              MessageBoxButtons.OK,
+                              MessageBoxIcon.Error);
             }
         }
 
@@ -798,7 +1007,7 @@ namespace UIWinTVO.Views
                 }
                 else
                 {
-                    mcbEmployeeWO.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                    mcbEmployeeWO.SelectedIndex = -1;
                 }
                 if (row.Cells["idOrderStatus"].Value != null)
                 {
@@ -806,7 +1015,7 @@ namespace UIWinTVO.Views
                 }
                 else
                 {
-                    mcbOrderStatus.SelectedIndex = -1; // Si no hay valor, deselecciona el combo
+                    mcbOrderStatus.SelectedIndex = -1;
                 }
                 if (DateTime.TryParse(row.Cells["expires"].Value.ToString(), out DateTime expires))
                 {
@@ -814,7 +1023,7 @@ namespace UIWinTVO.Views
                 }
                 else
                 {
-                    dtpExpireWO.Value = DateTime.Now; // Valor por defecto si no se puede parsear
+                    dtpExpireWO.Value = DateTime.Now;
                 }
             }
         }
@@ -878,10 +1087,131 @@ namespace UIWinTVO.Views
         private void btnExit_Click(object sender, EventArgs e)
         {
             FRMLogin loginForm = new FRMLogin();
-            this.Hide(); 
-            loginForm.ShowDialog(); 
-            this.Close(); 
+            this.Hide();
+            loginForm.ShowDialog();
+            this.Close();
         }
 
+        private async void btnViewDeatils_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string nui = txtNUIClientBudget.Text.Trim();
+                if (string.IsNullOrEmpty(nui))
+                {
+                    MessageBox.Show("Por favor ingrese el NUI del cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 2. Obtener datos de ambos servicios
+                var budgetsTask = _tvoAPIService.searchNUIBudget("WorkOrder/SearchBudgetWithNUI", nui);
+                var totalBudgetTask = _tvoAPIService.GetTotalBudgetByNui("WorkOrder/GetTotalBudgetByNui", nui);
+
+                await Task.WhenAll(budgetsTask, totalBudgetTask);
+
+                var budgets = await budgetsTask;
+                var totalBudget = await totalBudgetTask;
+
+                // 3. Validar si hay resultados
+                if (budgets == null || !budgets.Any())
+                {
+                    MessageBox.Show("No se encontraron presupuestos para el NUI ingresado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // 4. Mostrar total en TextBox
+                txtTotalBudget.Text = totalBudget?.ToString("C2") ?? "$0.00";
+
+                // 5. Cargar datos principales en TextBox
+                var firstBudget = budgets.First();
+                txtIdWOBudget.Text = firstBudget.idWorkOrder.ToString();
+                txtOrderStatus.Text = firstBudget.orderStatus;
+                txtClientBudget.Text = firstBudget.clientName;
+                txtBrandBudget.Text = firstBudget.vehicleBrand;
+                txtModelBudget.Text = firstBudget.vehicleModel;
+                txtPlateBudget.Text = firstBudget.vehiclePlate;
+                txtExpiresDate.Text = firstBudget.expires.ToString("dd/MM/yyyy");
+
+                // 6. Configurar DataGridView
+                dgvDeatilsBudget.SuspendLayout();
+                dgvDeatilsBudget.AutoGenerateColumns = false;
+                dgvDeatilsBudget.DataSource = null;
+                dgvDeatilsBudget.Columns.Clear();
+
+                // Configurar columnas
+                dgvDeatilsBudget.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    DataPropertyName = "idOrderDetails",
+                    HeaderText = "ID Detalle",
+                    Name = "colIdOrderDetails",
+                    Width = 80
+                });
+
+                dgvDeatilsBudget.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    DataPropertyName = "idService",
+                    HeaderText = "ID Servicio",
+                    Name = "colIdService",
+                    Width = 80
+                });
+
+                dgvDeatilsBudget.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    DataPropertyName = "descriptionServices",
+                    HeaderText = "Descripción",
+                    Name = "colDescription",
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                });
+
+                dgvDeatilsBudget.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    DataPropertyName = "price",
+                    HeaderText = "Precio",
+                    Name = "colPrice",
+                    DefaultCellStyle = new DataGridViewCellStyle()
+                    {
+                        Format = "C2",
+                        Alignment = DataGridViewContentAlignment.MiddleRight,
+                        Font = new Font(dgvDeatilsBudget.Font, FontStyle.Bold)
+                    },
+                    Width = 100
+                });
+
+                // Asignar datos y configurar estilo
+                dgvDeatilsBudget.DataSource = budgets;
+                dgvDeatilsBudget.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+                dgvDeatilsBudget.ReadOnly = true;
+                dgvDeatilsBudget.ResumeLayout();
+
+                // 7. Opcional: Resaltar total si es mayor a cierto valor
+                if (totalBudget > 1000)
+                {
+                    txtTotalBudget.BackColor = Color.LightGoldenrodYellow;
+                    txtTotalBudget.Font = new Font(txtTotalBudget.Font, FontStyle.Bold);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los datos: {ex.Message}");
+            }
+        }
+
+        private void btnClearBudget_Click(object sender, EventArgs e)
+        {
+            txtNUIClientBudget.Clear();
+            txtIdWOBudget.Clear();
+            txtClientBudget.Clear();
+            txtPlateBudget.Clear();
+            txtOrderStatus.Clear();
+            txtBrandBudget.Clear();
+            txtModelBudget.Clear();
+            txtTotalBudget.Clear();
+            txtExpiresDate.Clear();
+            if (dgvDeatilsBudget.DataSource != null)
+            {
+                dgvDeatilsBudget.DataSource = new List<SearchBudgetDTO>(); 
+            }
+            dgvDeatilsBudget.ClearSelection();
+        }
     }
 }

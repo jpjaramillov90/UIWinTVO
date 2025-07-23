@@ -133,6 +133,29 @@
             materialLabel35 = new MaterialSkin.Controls.MaterialLabel();
             txtIdWO = new MaterialSkin.Controls.MaterialTextBox();
             materialLabel36 = new MaterialSkin.Controls.MaterialLabel();
+            Details = new TabPage();
+            txtExpiresDate = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel40 = new MaterialSkin.Controls.MaterialLabel();
+            txtOrderStatus = new MaterialSkin.Controls.MaterialTextBox();
+            txtStateOrderBudget = new MaterialSkin.Controls.MaterialLabel();
+            btnClearBudget = new MaterialSkin.Controls.MaterialButton();
+            materialButton2 = new MaterialSkin.Controls.MaterialButton();
+            btnViewDeatils = new MaterialSkin.Controls.MaterialButton();
+            txtModelBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel39 = new MaterialSkin.Controls.MaterialLabel();
+            txtBrandBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel38 = new MaterialSkin.Controls.MaterialLabel();
+            txtPlateBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel37 = new MaterialSkin.Controls.MaterialLabel();
+            txtClientBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel33 = new MaterialSkin.Controls.MaterialLabel();
+            txtTotalBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel32 = new MaterialSkin.Controls.MaterialLabel();
+            dgvDeatilsBudget = new DataGridView();
+            txtIdWOBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel29 = new MaterialSkin.Controls.MaterialLabel();
+            txtNUIClientBudget = new MaterialSkin.Controls.MaterialTextBox();
+            materialLabel23 = new MaterialSkin.Controls.MaterialLabel();
             AssetsIcons = new ImageList(components);
             MTCStartapp.SuspendLayout();
             Home.SuspendLayout();
@@ -147,6 +170,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvEmployee).BeginInit();
             workOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvWorkOrders).BeginInit();
+            Details.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDeatilsBudget).BeginInit();
             SuspendLayout();
             // 
             // MTCStartapp
@@ -156,6 +181,7 @@
             MTCStartapp.Controls.Add(TransportData);
             MTCStartapp.Controls.Add(Employee);
             MTCStartapp.Controls.Add(workOrder);
+            MTCStartapp.Controls.Add(Details);
             MTCStartapp.Depth = 0;
             MTCStartapp.Dock = DockStyle.Fill;
             MTCStartapp.ImageList = AssetsIcons;
@@ -557,6 +583,7 @@
             txtPasswordClient.MouseState = MaterialSkin.MouseState.OUT;
             txtPasswordClient.Multiline = false;
             txtPasswordClient.Name = "txtPasswordClient";
+            txtPasswordClient.Password = true;
             txtPasswordClient.Size = new Size(271, 50);
             txtPasswordClient.TabIndex = 18;
             txtPasswordClient.Text = "";
@@ -1083,12 +1110,12 @@
             materialLabel26.Depth = 0;
             materialLabel26.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
             materialLabel26.ForeColor = Color.Transparent;
-            materialLabel26.Location = new Point(101, 163);
+            materialLabel26.Location = new Point(26, 164);
             materialLabel26.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel26.Name = "materialLabel26";
-            materialLabel26.Size = new Size(61, 19);
+            materialLabel26.Size = new Size(136, 19);
             materialLabel26.TabIndex = 29;
-            materialLabel26.Text = "Número:";
+            materialLabel26.Text = "Número de Unidad:";
             // 
             // txtPlateTransportData
             // 
@@ -1829,6 +1856,377 @@
             materialLabel36.TabIndex = 49;
             materialLabel36.Text = "Id:";
             // 
+            // Details
+            // 
+            Details.Controls.Add(txtExpiresDate);
+            Details.Controls.Add(materialLabel40);
+            Details.Controls.Add(txtOrderStatus);
+            Details.Controls.Add(txtStateOrderBudget);
+            Details.Controls.Add(btnClearBudget);
+            Details.Controls.Add(materialButton2);
+            Details.Controls.Add(btnViewDeatils);
+            Details.Controls.Add(txtModelBudget);
+            Details.Controls.Add(materialLabel39);
+            Details.Controls.Add(txtBrandBudget);
+            Details.Controls.Add(materialLabel38);
+            Details.Controls.Add(txtPlateBudget);
+            Details.Controls.Add(materialLabel37);
+            Details.Controls.Add(txtClientBudget);
+            Details.Controls.Add(materialLabel33);
+            Details.Controls.Add(txtTotalBudget);
+            Details.Controls.Add(materialLabel32);
+            Details.Controls.Add(dgvDeatilsBudget);
+            Details.Controls.Add(txtIdWOBudget);
+            Details.Controls.Add(materialLabel29);
+            Details.Controls.Add(txtNUIClientBudget);
+            Details.Controls.Add(materialLabel23);
+            Details.ImageKey = "budget.png";
+            Details.Location = new Point(4, 39);
+            Details.Name = "Details";
+            Details.Padding = new Padding(3);
+            Details.Size = new Size(1186, 790);
+            Details.TabIndex = 6;
+            Details.Text = "Detalle";
+            Details.UseVisualStyleBackColor = true;
+            // 
+            // txtExpiresDate
+            // 
+            txtExpiresDate.AnimateReadOnly = false;
+            txtExpiresDate.BorderStyle = BorderStyle.None;
+            txtExpiresDate.Depth = 0;
+            txtExpiresDate.Enabled = false;
+            txtExpiresDate.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtExpiresDate.LeadingIcon = null;
+            txtExpiresDate.Location = new Point(591, 22);
+            txtExpiresDate.MaxLength = 50;
+            txtExpiresDate.MouseState = MaterialSkin.MouseState.OUT;
+            txtExpiresDate.Multiline = false;
+            txtExpiresDate.Name = "txtExpiresDate";
+            txtExpiresDate.Size = new Size(124, 50);
+            txtExpiresDate.TabIndex = 83;
+            txtExpiresDate.Text = "";
+            txtExpiresDate.TrailingIcon = null;
+            // 
+            // materialLabel40
+            // 
+            materialLabel40.AutoSize = true;
+            materialLabel40.Depth = 0;
+            materialLabel40.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel40.Location = new Point(489, 37);
+            materialLabel40.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel40.Name = "materialLabel40";
+            materialLabel40.Size = new Size(96, 19);
+            materialLabel40.TabIndex = 82;
+            materialLabel40.Text = "Valido Hasta:";
+            // 
+            // txtOrderStatus
+            // 
+            txtOrderStatus.AnimateReadOnly = false;
+            txtOrderStatus.BorderStyle = BorderStyle.None;
+            txtOrderStatus.Depth = 0;
+            txtOrderStatus.Enabled = false;
+            txtOrderStatus.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtOrderStatus.LeadingIcon = null;
+            txtOrderStatus.Location = new Point(591, 93);
+            txtOrderStatus.MaxLength = 50;
+            txtOrderStatus.MouseState = MaterialSkin.MouseState.OUT;
+            txtOrderStatus.Multiline = false;
+            txtOrderStatus.Name = "txtOrderStatus";
+            txtOrderStatus.Size = new Size(124, 50);
+            txtOrderStatus.TabIndex = 81;
+            txtOrderStatus.Text = "";
+            txtOrderStatus.TrailingIcon = null;
+            // 
+            // txtStateOrderBudget
+            // 
+            txtStateOrderBudget.AutoSize = true;
+            txtStateOrderBudget.Depth = 0;
+            txtStateOrderBudget.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtStateOrderBudget.Location = new Point(464, 104);
+            txtStateOrderBudget.MouseState = MaterialSkin.MouseState.HOVER;
+            txtStateOrderBudget.Name = "txtStateOrderBudget";
+            txtStateOrderBudget.Size = new Size(121, 19);
+            txtStateOrderBudget.TabIndex = 80;
+            txtStateOrderBudget.Text = "Estado de Orden:";
+            // 
+            // btnClearBudget
+            // 
+            btnClearBudget.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnClearBudget.BackColor = Color.Red;
+            btnClearBudget.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnClearBudget.Depth = 0;
+            btnClearBudget.ForeColor = Color.Red;
+            btnClearBudget.HighEmphasis = true;
+            btnClearBudget.Icon = Properties.Resources.delete;
+            btnClearBudget.Location = new Point(973, 150);
+            btnClearBudget.Margin = new Padding(4, 6, 4, 6);
+            btnClearBudget.MouseState = MaterialSkin.MouseState.HOVER;
+            btnClearBudget.Name = "btnClearBudget";
+            btnClearBudget.NoAccentTextColor = Color.Empty;
+            btnClearBudget.Size = new Size(107, 36);
+            btnClearBudget.TabIndex = 79;
+            btnClearBudget.Text = "Limpiar";
+            btnClearBudget.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnClearBudget.UseAccentColor = false;
+            btnClearBudget.UseVisualStyleBackColor = false;
+            btnClearBudget.Click += btnClearBudget_Click;
+            // 
+            // materialButton2
+            // 
+            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton2.Depth = 0;
+            materialButton2.HighEmphasis = true;
+            materialButton2.Icon = Properties.Resources.edit;
+            materialButton2.Location = new Point(973, 93);
+            materialButton2.Margin = new Padding(4, 6, 4, 6);
+            materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
+            materialButton2.Name = "materialButton2";
+            materialButton2.NoAccentTextColor = Color.Empty;
+            materialButton2.Size = new Size(127, 36);
+            materialButton2.TabIndex = 78;
+            materialButton2.Text = "Modificar";
+            materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton2.UseAccentColor = false;
+            materialButton2.UseVisualStyleBackColor = true;
+            // 
+            // btnViewDeatils
+            // 
+            btnViewDeatils.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnViewDeatils.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnViewDeatils.Depth = 0;
+            btnViewDeatils.HighEmphasis = true;
+            btnViewDeatils.Icon = Properties.Resources.viewDetails;
+            btnViewDeatils.Location = new Point(973, 36);
+            btnViewDeatils.Margin = new Padding(4, 6, 4, 6);
+            btnViewDeatils.MouseState = MaterialSkin.MouseState.HOVER;
+            btnViewDeatils.Name = "btnViewDeatils";
+            btnViewDeatils.NoAccentTextColor = Color.Empty;
+            btnViewDeatils.Size = new Size(141, 36);
+            btnViewDeatils.TabIndex = 77;
+            btnViewDeatils.Text = "Ver Detalle";
+            btnViewDeatils.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnViewDeatils.UseAccentColor = false;
+            btnViewDeatils.UseVisualStyleBackColor = true;
+            btnViewDeatils.Click += btnViewDeatils_Click;
+            // 
+            // txtModelBudget
+            // 
+            txtModelBudget.AnimateReadOnly = false;
+            txtModelBudget.BorderStyle = BorderStyle.None;
+            txtModelBudget.Depth = 0;
+            txtModelBudget.Enabled = false;
+            txtModelBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtModelBudget.LeadingIcon = null;
+            txtModelBudget.Location = new Point(591, 237);
+            txtModelBudget.MaxLength = 50;
+            txtModelBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtModelBudget.Multiline = false;
+            txtModelBudget.Name = "txtModelBudget";
+            txtModelBudget.Size = new Size(124, 50);
+            txtModelBudget.TabIndex = 14;
+            txtModelBudget.Text = "";
+            txtModelBudget.TrailingIcon = null;
+            // 
+            // materialLabel39
+            // 
+            materialLabel39.AutoSize = true;
+            materialLabel39.Depth = 0;
+            materialLabel39.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel39.Location = new Point(527, 252);
+            materialLabel39.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel39.Name = "materialLabel39";
+            materialLabel39.Size = new Size(58, 19);
+            materialLabel39.TabIndex = 13;
+            materialLabel39.Text = "Modelo:";
+            // 
+            // txtBrandBudget
+            // 
+            txtBrandBudget.AnimateReadOnly = false;
+            txtBrandBudget.BorderStyle = BorderStyle.None;
+            txtBrandBudget.Depth = 0;
+            txtBrandBudget.Enabled = false;
+            txtBrandBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtBrandBudget.LeadingIcon = null;
+            txtBrandBudget.Location = new Point(591, 160);
+            txtBrandBudget.MaxLength = 50;
+            txtBrandBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtBrandBudget.Multiline = false;
+            txtBrandBudget.Name = "txtBrandBudget";
+            txtBrandBudget.Size = new Size(124, 50);
+            txtBrandBudget.TabIndex = 12;
+            txtBrandBudget.Text = "";
+            txtBrandBudget.TrailingIcon = null;
+            // 
+            // materialLabel38
+            // 
+            materialLabel38.AutoSize = true;
+            materialLabel38.Depth = 0;
+            materialLabel38.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel38.Location = new Point(535, 175);
+            materialLabel38.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel38.Name = "materialLabel38";
+            materialLabel38.Size = new Size(50, 19);
+            materialLabel38.TabIndex = 11;
+            materialLabel38.Text = "Marca:";
+            // 
+            // txtPlateBudget
+            // 
+            txtPlateBudget.AnimateReadOnly = false;
+            txtPlateBudget.BorderStyle = BorderStyle.None;
+            txtPlateBudget.Depth = 0;
+            txtPlateBudget.Enabled = false;
+            txtPlateBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPlateBudget.LeadingIcon = null;
+            txtPlateBudget.Location = new Point(175, 236);
+            txtPlateBudget.MaxLength = 50;
+            txtPlateBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtPlateBudget.Multiline = false;
+            txtPlateBudget.Name = "txtPlateBudget";
+            txtPlateBudget.Size = new Size(124, 50);
+            txtPlateBudget.TabIndex = 10;
+            txtPlateBudget.Text = "";
+            txtPlateBudget.TrailingIcon = null;
+            // 
+            // materialLabel37
+            // 
+            materialLabel37.AutoSize = true;
+            materialLabel37.Depth = 0;
+            materialLabel37.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel37.Location = new Point(124, 252);
+            materialLabel37.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel37.Name = "materialLabel37";
+            materialLabel37.Size = new Size(45, 19);
+            materialLabel37.TabIndex = 9;
+            materialLabel37.Text = "Placa:";
+            // 
+            // txtClientBudget
+            // 
+            txtClientBudget.AnimateReadOnly = false;
+            txtClientBudget.BorderStyle = BorderStyle.None;
+            txtClientBudget.Depth = 0;
+            txtClientBudget.Enabled = false;
+            txtClientBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtClientBudget.LeadingIcon = null;
+            txtClientBudget.Location = new Point(175, 159);
+            txtClientBudget.MaxLength = 50;
+            txtClientBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtClientBudget.Multiline = false;
+            txtClientBudget.Name = "txtClientBudget";
+            txtClientBudget.Size = new Size(221, 50);
+            txtClientBudget.TabIndex = 8;
+            txtClientBudget.Text = "";
+            txtClientBudget.TrailingIcon = null;
+            // 
+            // materialLabel33
+            // 
+            materialLabel33.AutoSize = true;
+            materialLabel33.Depth = 0;
+            materialLabel33.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel33.Location = new Point(116, 174);
+            materialLabel33.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel33.Name = "materialLabel33";
+            materialLabel33.Size = new Size(53, 19);
+            materialLabel33.TabIndex = 7;
+            materialLabel33.Text = "Cliente:";
+            // 
+            // txtTotalBudget
+            // 
+            txtTotalBudget.AnimateReadOnly = false;
+            txtTotalBudget.BorderStyle = BorderStyle.None;
+            txtTotalBudget.Depth = 0;
+            txtTotalBudget.Enabled = false;
+            txtTotalBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtTotalBudget.LeadingIcon = null;
+            txtTotalBudget.Location = new Point(1055, 734);
+            txtTotalBudget.MaxLength = 50;
+            txtTotalBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtTotalBudget.Multiline = false;
+            txtTotalBudget.Name = "txtTotalBudget";
+            txtTotalBudget.Size = new Size(113, 50);
+            txtTotalBudget.TabIndex = 6;
+            txtTotalBudget.Text = "";
+            txtTotalBudget.TrailingIcon = null;
+            // 
+            // materialLabel32
+            // 
+            materialLabel32.AutoSize = true;
+            materialLabel32.Depth = 0;
+            materialLabel32.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel32.Location = new Point(1007, 751);
+            materialLabel32.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel32.Name = "materialLabel32";
+            materialLabel32.Size = new Size(42, 19);
+            materialLabel32.TabIndex = 5;
+            materialLabel32.Text = "Total:";
+            // 
+            // dgvDeatilsBudget
+            // 
+            dgvDeatilsBudget.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDeatilsBudget.Location = new Point(22, 307);
+            dgvDeatilsBudget.Name = "dgvDeatilsBudget";
+            dgvDeatilsBudget.Size = new Size(1146, 400);
+            dgvDeatilsBudget.TabIndex = 4;
+            // 
+            // txtIdWOBudget
+            // 
+            txtIdWOBudget.AnimateReadOnly = false;
+            txtIdWOBudget.BorderStyle = BorderStyle.None;
+            txtIdWOBudget.Depth = 0;
+            txtIdWOBudget.Enabled = false;
+            txtIdWOBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtIdWOBudget.LeadingIcon = null;
+            txtIdWOBudget.Location = new Point(175, 92);
+            txtIdWOBudget.MaxLength = 50;
+            txtIdWOBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtIdWOBudget.Multiline = false;
+            txtIdWOBudget.Name = "txtIdWOBudget";
+            txtIdWOBudget.Size = new Size(124, 50);
+            txtIdWOBudget.TabIndex = 3;
+            txtIdWOBudget.Text = "";
+            txtIdWOBudget.TrailingIcon = null;
+            // 
+            // materialLabel29
+            // 
+            materialLabel29.AutoSize = true;
+            materialLabel29.Depth = 0;
+            materialLabel29.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel29.Location = new Point(42, 107);
+            materialLabel29.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel29.Name = "materialLabel29";
+            materialLabel29.Size = new Size(127, 19);
+            materialLabel29.TabIndex = 2;
+            materialLabel29.Text = "Orden de Trabajo:";
+            // 
+            // txtNUIClientBudget
+            // 
+            txtNUIClientBudget.AnimateReadOnly = false;
+            txtNUIClientBudget.BorderStyle = BorderStyle.None;
+            txtNUIClientBudget.Depth = 0;
+            txtNUIClientBudget.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtNUIClientBudget.LeadingIcon = null;
+            txtNUIClientBudget.Location = new Point(175, 22);
+            txtNUIClientBudget.MaxLength = 50;
+            txtNUIClientBudget.MouseState = MaterialSkin.MouseState.OUT;
+            txtNUIClientBudget.Multiline = false;
+            txtNUIClientBudget.Name = "txtNUIClientBudget";
+            txtNUIClientBudget.Size = new Size(170, 50);
+            txtNUIClientBudget.TabIndex = 1;
+            txtNUIClientBudget.Text = "";
+            txtNUIClientBudget.TrailingIcon = null;
+            // 
+            // materialLabel23
+            // 
+            materialLabel23.AutoSize = true;
+            materialLabel23.Depth = 0;
+            materialLabel23.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            materialLabel23.Location = new Point(87, 37);
+            materialLabel23.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel23.Name = "materialLabel23";
+            materialLabel23.Size = new Size(82, 19);
+            materialLabel23.TabIndex = 0;
+            materialLabel23.Text = "NUI Cliente:";
+            // 
             // AssetsIcons
             // 
             AssetsIcons.ColorDepth = ColorDepth.Depth32Bit;
@@ -1884,6 +2282,9 @@
             workOrder.ResumeLayout(false);
             workOrder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvWorkOrders).EndInit();
+            Details.ResumeLayout(false);
+            Details.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDeatilsBudget).EndInit();
             ResumeLayout(false);
         }
 
@@ -1979,14 +2380,14 @@
         private TabPage workOrder;
         private MaterialSkin.Controls.MaterialComboBox materialComboBox1;
         private MaterialSkin.Controls.MaterialLabel materialLabel22;
-        private MaterialSkin.Controls.MaterialButton materialButton1;
+        private MaterialSkin.Controls.MaterialButton btnClearBudget;
         private MaterialSkin.Controls.MaterialButton materialButton2;
         private MaterialSkin.Controls.MaterialButton btnAddWO;
         private DataGridView dgvWorkOrders;
         private MaterialSkin.Controls.MaterialLabel materialLabel23;
-        private MaterialSkin.Controls.MaterialTextBox materialTextBox1;
+        private MaterialSkin.Controls.MaterialTextBox txtNUIClientBudget;
         private MaterialSkin.Controls.MaterialLabel materialLabel29;
-        private MaterialSkin.Controls.MaterialTextBox materialTextBox2;
+        private MaterialSkin.Controls.MaterialTextBox txtTotalBudget;
         private MaterialSkin.Controls.MaterialLabel materialLabel30;
         private MaterialSkin.Controls.MaterialLabel materialLabel31;
         private MaterialSkin.Controls.MaterialLabel materialLabel34;
@@ -2000,5 +2401,22 @@
         private MaterialSkin.Controls.MaterialButton btnEditWO;
         private MaterialSkin.Controls.MaterialComboBox mcbEmployeeWO;
         private MaterialSkin.Controls.MaterialButton btnExit;
+        private TabPage Details;
+        private MaterialSkin.Controls.MaterialLabel materialLabel32;
+        private DataGridView dgvDeatilsBudget;
+        private MaterialSkin.Controls.MaterialTextBox txtIdWOBudget;
+        private MaterialSkin.Controls.MaterialButton btnViewDeatils;
+        private MaterialSkin.Controls.MaterialTextBox txtModelBudget;
+        private MaterialSkin.Controls.MaterialLabel materialLabel39;
+        private MaterialSkin.Controls.MaterialTextBox txtBrandBudget;
+        private MaterialSkin.Controls.MaterialLabel materialLabel38;
+        private MaterialSkin.Controls.MaterialTextBox txtPlateBudget;
+        private MaterialSkin.Controls.MaterialLabel materialLabel37;
+        private MaterialSkin.Controls.MaterialTextBox txtClientBudget;
+        private MaterialSkin.Controls.MaterialLabel materialLabel33;
+        private MaterialSkin.Controls.MaterialTextBox txtOrderStatus;
+        private MaterialSkin.Controls.MaterialLabel txtStateOrderBudget;
+        private MaterialSkin.Controls.MaterialTextBox txtExpiresDate;
+        private MaterialSkin.Controls.MaterialLabel materialLabel40;
     }
 }

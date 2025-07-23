@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIWinTVO.Model.DTO;
 
 namespace UIWinTVO.Controller
 {
@@ -49,6 +50,55 @@ namespace UIWinTVO.Controller
                 throw new HttpRequestException($"Error : No se puede actualizar en {nameEntity}. Detalle: {errorContent}");
             }
         }
+        public async Task<List<SearchBudgetDTO>> searchNUIBudget(string endPoint, string nui)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{nui}");
+                response.EnsureSuccessStatusCode();
+
+                var content = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<SearchBudgetDTO>>(content);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error al buscar presupuestos para NUI {nui}: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<decimal?> GetTotalBudgetByNui(string endPoint, string nui)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{nui}");
+                response.EnsureSuccessStatusCode();
+
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<TotalBudgetDTO>(content);
+
+                return result?.totalBudget;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error al obtener el total del presupuesto para NUI {nui}: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<bool> IsChassisExists(string endPoint, string chassis)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{chassis}");
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+                // Suponiendo que el endpoint devuelve "true" o "false" como texto plano
+                return bool.TryParse(content, out bool exists) && exists;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error al validar el chasis {chassis}: {ex.Message}", ex);
+            }
+        }
 
     }
-}
+}   
