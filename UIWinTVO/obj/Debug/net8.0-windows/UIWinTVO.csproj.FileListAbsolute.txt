@@ -8,7 +8,9 @@ C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-wind
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.csproj.AssemblyReference.cache
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Properties.Resources.resources
+C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.FRMBudget.resources
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.FRMLogin.resources
+C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.FRMOrderDetails.resources
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.Views.StartApp.resources
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.csproj.GenerateResource.cache
 C:\Users\joaojv\Documents\Projects\PISIP\UIWinTVO\UIWinTVO\obj\Debug\net8.0-windows\UIWinTVO.GeneratedMSBuildEditorConfig.editorconfig

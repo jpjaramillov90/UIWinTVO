@@ -50,11 +50,11 @@ namespace UIWinTVO.Controller
                 throw new HttpRequestException($"Error : No se puede actualizar en {nameEntity}. Detalle: {errorContent}");
             }
         }
-        public async Task<List<SearchBudgetDTO>> searchNUIBudget(string endPoint, string nui)
+        public async Task<List<SearchBudgetDTO>> SearchBudgetWithidwo(string endPoint, int idwo)
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{nui}");
+                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{idwo}");
                 response.EnsureSuccessStatusCode();
 
                 var content = await response.Content.ReadAsStringAsync();
@@ -62,15 +62,15 @@ namespace UIWinTVO.Controller
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error al buscar presupuestos para NUI {nui}: {ex.Message}", ex);
+                throw new Exception($"Error al buscar presupuestos para la OT {idwo}: {ex.Message}", ex);
             }
         }
 
-        public async Task<decimal?> GetTotalBudgetByNui(string endPoint, string nui)
+        public async Task<decimal?> GetTotalBudgetByidwo(string endPoint, int idwo)
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{nui}");
+                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{idwo}");
                 response.EnsureSuccessStatusCode();
 
                 var content = await response.Content.ReadAsStringAsync();
@@ -80,7 +80,7 @@ namespace UIWinTVO.Controller
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error al obtener el total del presupuesto para NUI {nui}: {ex.Message}", ex);
+                throw new Exception($"Error al obtener el total del presupuesto para la OT {idwo}: {ex.Message}", ex);
             }
         }
 
@@ -99,6 +99,20 @@ namespace UIWinTVO.Controller
                 throw new Exception($"Error al validar el chasis {chassis}: {ex.Message}", ex);
             }
         }
+        public async Task<List<GetServicesByWorkOrderDTO>> GetServicesByWorkOrderDTO(string endPoint, int idWorkOrder)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseURL}/{endPoint}/{idWorkOrder}");
+                response.EnsureSuccessStatusCode();
 
+                var content = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<GetServicesByWorkOrderDTO>>(content);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error al obtener servicios para la orden {idWorkOrder}: {ex.Message}", ex);
+            }
+        }
     }
 }   

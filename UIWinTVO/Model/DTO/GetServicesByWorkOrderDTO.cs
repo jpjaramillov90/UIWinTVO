@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace UIWinTVO.Model.DTO
 {
-    public class TotalBudgetDTO
+    public class GetServicesByWorkOrderDTO
     {
-        public decimal? totalBudget { get; set; }
-        public string idWorkOrder { get; set; }
+        public string Description { get; set; }
     }
 }

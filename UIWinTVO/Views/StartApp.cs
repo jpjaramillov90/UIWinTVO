@@ -119,8 +119,7 @@ namespace UIWinTVO.Views
 
         private async void mbtnAddClient_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtIdClient.Text) ||
-                    string.IsNullOrWhiteSpace(txtNUIClient.Text) ||
+            if (string.IsNullOrWhiteSpace(txtNUIClient.Text) ||
                     string.IsNullOrWhiteSpace(txtFirstNameClient.Text) ||
                     string.IsNullOrWhiteSpace(txtLastNameClient.Text) ||
                     string.IsNullOrWhiteSpace(txtPhoneClient.Text) ||
@@ -181,7 +180,7 @@ namespace UIWinTVO.Views
         private async void mbtnEditClient_Click(object sender, EventArgs e)
         {
             // Validación de campos obligatorios
-            if (string.IsNullOrWhiteSpace(txtIdClient.Text) ||
+            if (
                 string.IsNullOrWhiteSpace(txtNUIClient.Text) ||
                 string.IsNullOrWhiteSpace(txtFirstNameClient.Text) ||
                 string.IsNullOrWhiteSpace(txtLastNameClient.Text) ||
@@ -516,7 +515,7 @@ namespace UIWinTVO.Views
 
         private async void btnEditEmployee_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtIdEmployee.Text) ||
+            if (
                 string.IsNullOrWhiteSpace(txtNUIEmployee.Text) ||
                 string.IsNullOrWhiteSpace(txtFirstNameEmployee.Text) ||
                 string.IsNullOrWhiteSpace(txtLastNameEmployee.Text) ||
@@ -552,7 +551,7 @@ namespace UIWinTVO.Views
             var editEmployee = new EmployeeDTO
             {
                 idEmployee = int.Parse(txtIdEmployee.Text),
-                nui = txtNUIEmployee.Text, 
+                nui = txtNUIEmployee.Text,
                 firstName = txtFirstNameEmployee.Text,
                 lastName = txtLastNameEmployee.Text,
                 phone = txtPhoneEmployee.Text,
@@ -895,6 +894,11 @@ namespace UIWinTVO.Views
             clearFieldsTransportData();
         }
 
+        private async void mcbClientsTransportData_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await listOwners();
+        }
+
         // Métodos para ordenes de trabajo
         private async Task listOrderStatus()
         {
@@ -1096,35 +1100,34 @@ namespace UIWinTVO.Views
         {
             try
             {
-                string nui = txtNUIClientBudget.Text.Trim();
-                if (string.IsNullOrEmpty(nui))
+                // Corregir estas dos líneas
+                string idwoText = txtIDWOBudget.Text;
+                if (string.IsNullOrEmpty(idwoText))
                 {
-                    MessageBox.Show("Por favor ingrese el NUI del cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Por favor ingrese la OT del cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                int idwo = int.Parse(idwoText);
 
-                // 2. Obtener datos de ambos servicios
-                var budgetsTask = _tvoAPIService.searchNUIBudget("WorkOrder/SearchBudgetWithNUI", nui);
-                var totalBudgetTask = _tvoAPIService.GetTotalBudgetByNui("WorkOrder/GetTotalBudgetByNui", nui);
+                // El resto del método permanece exactamente igual
+                var budgetsTask = _tvoAPIService.SearchBudgetWithidwo("WorkOrder/SearchBudgetWithidwo", idwo);
+                var totalBudgetTask = _tvoAPIService.GetTotalBudgetByidwo("WorkOrder/GetTotalBudgetByidwo", idwo);
 
                 await Task.WhenAll(budgetsTask, totalBudgetTask);
 
                 var budgets = await budgetsTask;
                 var totalBudget = await totalBudgetTask;
 
-                // 3. Validar si hay resultados
                 if (budgets == null || !budgets.Any())
                 {
                     MessageBox.Show("No se encontraron presupuestos para el NUI ingresado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                // 4. Mostrar total en TextBox
                 txtTotalBudget.Text = totalBudget?.ToString("C2") ?? "$0.00";
 
-                // 5. Cargar datos principales en TextBox
                 var firstBudget = budgets.First();
-                txtIdWOBudget.Text = firstBudget.idWorkOrder.ToString();
+                txtIdNUIClientBudget.Text = firstBudget.clientNui;
                 txtOrderStatus.Text = firstBudget.orderStatus;
                 txtClientBudget.Text = firstBudget.clientName;
                 txtBrandBudget.Text = firstBudget.vehicleBrand;
@@ -1132,13 +1135,11 @@ namespace UIWinTVO.Views
                 txtPlateBudget.Text = firstBudget.vehiclePlate;
                 txtExpiresDate.Text = firstBudget.expires.ToString("dd/MM/yyyy");
 
-                // 6. Configurar DataGridView
                 dgvDeatilsBudget.SuspendLayout();
                 dgvDeatilsBudget.AutoGenerateColumns = false;
                 dgvDeatilsBudget.DataSource = null;
                 dgvDeatilsBudget.Columns.Clear();
 
-                // Configurar columnas
                 dgvDeatilsBudget.Columns.Add(new DataGridViewTextBoxColumn()
                 {
                     DataPropertyName = "idOrderDetails",
@@ -1177,13 +1178,11 @@ namespace UIWinTVO.Views
                     Width = 100
                 });
 
-                // Asignar datos y configurar estilo
                 dgvDeatilsBudget.DataSource = budgets;
                 dgvDeatilsBudget.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
                 dgvDeatilsBudget.ReadOnly = true;
                 dgvDeatilsBudget.ResumeLayout();
 
-                // 7. Opcional: Resaltar total si es mayor a cierto valor
                 if (totalBudget > 1000)
                 {
                     txtTotalBudget.BackColor = Color.LightGoldenrodYellow;
@@ -1198,8 +1197,8 @@ namespace UIWinTVO.Views
 
         private void btnClearBudget_Click(object sender, EventArgs e)
         {
-            txtNUIClientBudget.Clear();
-            txtIdWOBudget.Clear();
+            txtIDWOBudget.Clear();
+            txtIdNUIClientBudget.Clear();
             txtClientBudget.Clear();
             txtPlateBudget.Clear();
             txtOrderStatus.Clear();
@@ -1209,9 +1208,21 @@ namespace UIWinTVO.Views
             txtExpiresDate.Clear();
             if (dgvDeatilsBudget.DataSource != null)
             {
-                dgvDeatilsBudget.DataSource = new List<SearchBudgetDTO>(); 
+                dgvDeatilsBudget.DataSource = new List<SearchBudgetDTO>();
             }
             dgvDeatilsBudget.ClearSelection();
+        }
+
+        private void btnInsertDetailsOT_Click(object sender, EventArgs e)
+        {
+            FRMOrderDetails frmOrderDetails = new FRMOrderDetails();
+            frmOrderDetails.Show();
+        }
+
+        private void btnAddBudgetOT_Click(object sender, EventArgs e)
+        {
+            FRMBudget fmrBudget = new FRMBudget();
+            fmrBudget.Show();
         }
     }
 }
